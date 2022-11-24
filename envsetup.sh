@@ -62,6 +62,7 @@ function displayDeviceInfo() {
     echo "============================================"
     echo "TARGET_DEVICE=$TARGET_DEVICE"
     echo "TARGET_ARCH=arm64" # HardCode this for now.
+    echo "TARGET_KERNEL_VERSION=$TARGET_KERNEL_VERSION"
     echo "KERNEL_DEFCONFIG=$KERNEL_DEFCONFIG"
     echo "KERNEL_DIR=$KERNEL_DIR"
     echo "HOST_OS=$HOST_OS"
@@ -106,4 +107,9 @@ function buildKernelImage() {
                 CROSS_COMPILE_ARM32=arm-linux-androideabi-"
     make -j$(nproc --all) O=$TOP/out $MAKE_PARAMS
     cd $TOP
+}
+
+function buildKernel() {
+    buildDefconfig
+    buildKernelImage
 }
