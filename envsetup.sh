@@ -23,3 +23,11 @@ function getTop() {
         fi
     fi
 }
+
+function setupDevice() {
+
+    if [[ $# = 0 ]]; then
+        echo "usage: setDevice [target]" >&2
+        return 1
+    fi
+}
