@@ -26,8 +26,18 @@ function getTop() {
 
 function setupDevice() {
 
+    local TOP=$(getTop)
     if [[ $# = 0 ]]; then
         echo "usage: setDevice [target]" >&2
         return 1
     fi
+
+    local DEVICE="$1"
+    cd "$TOP"
+    for dir in device; do
+        for f in $(cd "$TOP" && test -d $dir && \
+            find -L $TOP -maxdepth 4 -name "device-$DEVICE.sh" | sort); do
+                echo "including $f"; . "$T/$f"
+        done
+    done
 }
