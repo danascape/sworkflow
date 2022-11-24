@@ -41,7 +41,25 @@ function setupDevice() {
                     echo "including $f"; . "$T/$f"
             done
         done
+        displayDeviceInfo $DEVICE
     else
         echo "error: Can not locate config for product "$DEVICE""
     fi
+}
+
+function displayDeviceInfo() {
+
+    if [[ $# = 0 ]]; then
+        echo "usage: displayDeviceInfo [target]" >&2
+        return 1
+    fi
+    local DEVICE="$1"
+    local TARGET_DEVICE="$DEVICE"
+    echo "============================================"
+    echo "TARGET_DEVICE=$TARGET_DEVICE"
+    echo "TARGET_ARCH=arm64" # HardCode this for now.
+    echo "KERNEL_DEFCONFIG=$KERNEL_DEFCONFIG"
+    echo "KERNEL_DIR=$KERNEL_DIR"
+    echo "OUT_DIR=out" # HardCode this for now.
+    echo "============================================"
 }
