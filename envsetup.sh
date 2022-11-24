@@ -53,13 +53,34 @@ function displayDeviceInfo() {
         echo "usage: displayDeviceInfo [target]" >&2
         return 1
     fi
+
     local DEVICE="$1"
     local TARGET_DEVICE="$DEVICE"
+    local HOST_OS=$(uname)
+    local HOST_OS_EXTRA=$(uname -r)
+    setupCompiler
     echo "============================================"
     echo "TARGET_DEVICE=$TARGET_DEVICE"
     echo "TARGET_ARCH=arm64" # HardCode this for now.
     echo "KERNEL_DEFCONFIG=$KERNEL_DEFCONFIG"
     echo "KERNEL_DIR=$KERNEL_DIR"
+    echo "HOST_COMPILER=clang $TARGET_CLANG"
+    echo "HOST_COMPILER_VERSION=$TARGET_CLANG_VERSION"
+    echo "HOST_OS=$HOST_OS"
+    echo "HOST_OS_EXTRA=$HOST_OS_EXTRA"
     echo "OUT_DIR=out" # HardCode this for now.
     echo "============================================"
+}
+
+function setupCompiler() {
+    local TOP=$(getTop)
+    local PREBUILT_PATH="$TOP/prebuilts/clang/host/linux-x86"
+    if [[ $TARGET_CLANG ]]; then
+        echo "warning: TARGET_CLANG is already set!"
+    else
+        echo "warning: TARGET_CLANG not found"
+        echo "warning: Setting clang 10 as default!"
+        TARGET_CLANG=10
+    fi
+    export TARGET_CLANG_VERSION=$($PREBUILT_PATH/clang-$TARGET_CLANG/bin/clang --version | head -n 1 | cut -f1,6,8 -d " ")
 }
