@@ -64,10 +64,11 @@ function displayDeviceInfo() {
     echo "TARGET_ARCH=arm64" # HardCode this for now.
     echo "KERNEL_DEFCONFIG=$KERNEL_DEFCONFIG"
     echo "KERNEL_DIR=$KERNEL_DIR"
-    echo "HOST_COMPILER=clang $TARGET_CLANG"
-    echo "HOST_COMPILER_VERSION=$TARGET_CLANG_VERSION"
     echo "HOST_OS=$HOST_OS"
     echo "HOST_OS_EXTRA=$HOST_OS_EXTRA"
+    echo "HOST_COMPILER=clang $TARGET_CLANG"
+    echo "HOST_COMPILER_VERSION=$TARGET_CLANG_VERSION"
+    echo "HOST_COMPILER_PATH=$COMPILER_PATH"
     echo "OUT_DIR=out" # HardCode this for now.
     echo "============================================"
 }
@@ -83,4 +84,6 @@ function setupCompiler() {
         TARGET_CLANG=10
     fi
     export TARGET_CLANG_VERSION=$($PREBUILT_PATH/clang-$TARGET_CLANG/bin/clang --version | head -n 1 | cut -f1,6,8 -d " ")
+    export COMPILER_PATH="$PREBUILT_PATH/clang-$TARGET_CLANG/bin"
+    export PATH="${COMPILER_PATH}:${PATH}"
 }
