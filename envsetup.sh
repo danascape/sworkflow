@@ -91,6 +91,19 @@ function setupCompiler() {
 function buildDefconfig() {
     local TOP=$(getTop)
     cd $TOP/$KERNEL_DIR
-    make O=$TOP/out ARCH=arm64 $KERNEL_DEFCONFIG
+    local MAKE_PARAMS="ARCH=arm64 CC=clang CLANG_TRIPLE=aarch64-linux-gnu- \
+                CROSS_COMPILE=aarch64-linux-android- \
+                CROSS_COMPILE_ARM32=arm-linux-androideabi-"
+    make O=$TOP/out $MAKE_PARAMS $KERNEL_DEFCONFIG
+    cd $TOP
+}
+
+function buildKernelImage() {
+    local TOP=$(getTop)
+    cd $TOP/$KERNEL_DIR
+    local MAKE_PARAMS="ARCH=arm64 CC=clang CLANG_TRIPLE=aarch64-linux-gnu- \
+                CROSS_COMPILE=aarch64-linux-android- \
+                CROSS_COMPILE_ARM32=arm-linux-androideabi-"
+    make -j$(nproc --all) O=$TOP/out $MAKE_PARAMS
     cd $TOP
 }
