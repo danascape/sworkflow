@@ -11,6 +11,15 @@ function getTop() {
     if [[ -f "$TOPFILE" ]] ; then
         PWD= /bin/pwd
     else
-        echo "File not found"
+        local HERE=$PWD
+        local T=
+        while [ \( ! \( -f $TOPFILE \) \) -a \( "$PWD" != "/" \) ]; do
+            \cd ..
+            T=`PWD= /bin/pwd -P`
+        done
+            \cd "$HERE"
+        if [ -f "$T/$TOPFILE" ]; then
+            echo "$T"
+        fi
     fi
 }
