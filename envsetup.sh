@@ -87,3 +87,10 @@ function setupCompiler() {
     export COMPILER_PATH="$PREBUILT_PATH/clang-$TARGET_CLANG/bin"
     export PATH="${COMPILER_PATH}:${PATH}"
 }
+
+function buildDefconfig() {
+    local TOP=$(getTop)
+    cd $TOP/$KERNEL_DIR
+    make O=$TOP/out ARCH=arm64 $KERNEL_DEFCONFIG
+    cd $TOP
+}
