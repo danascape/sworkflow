@@ -61,7 +61,7 @@ function displayDeviceInfo() {
     setupCompiler
     echo "============================================"
     echo "TARGET_DEVICE=$TARGET_DEVICE"
-    echo "TARGET_ARCH=arm64" # HardCode this for now.
+    echo "TARGET_ARCH=$TARGET_ARCH"
     echo "TARGET_KERNEL_VERSION=$TARGET_KERNEL_VERSION"
     echo "KERNEL_DEFCONFIG=$KERNEL_DEFCONFIG"
     echo "KERNEL_DIR=$KERNEL_DIR"
