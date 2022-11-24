@@ -34,10 +34,14 @@ function setupDevice() {
 
     local DEVICE="$1"
     cd "$TOP"
-    for dir in device; do
-        for f in $(cd "$TOP" && test -d $dir && \
-            find -L $TOP -maxdepth 4 -name "device-$DEVICE.sh" | sort); do
-                echo "including $f"; . "$T/$f"
+    if [[ -n $(find -L $TOP -maxdepth 4 -name "device-$DEVICE.sh") ]]; then
+        for dir in device; do
+            for f in $(cd "$TOP" && test -d $dir && \
+                find -L $TOP -maxdepth 4 -name "device-$DEVICE.sh" | sort); do
+                    echo "including $f"; . "$T/$f"
+            done
         done
-    done
+    else
+        echo "error: Can not locate config for product "$DEVICE""
+    fi
 }
