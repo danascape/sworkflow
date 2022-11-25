@@ -105,10 +105,16 @@ function buildDefconfig() {
 function buildKernelImage() {
     local TOP=$(getTop)
     cd $TOP/$KERNEL_DIR
-    local MAKE_PARAMS="ARCH=arm64 CC=clang CLANG_TRIPLE=aarch64-linux-gnu- \
-                CROSS_COMPILE=aarch64-linux-android- \
-                CROSS_COMPILE_ARM32=arm-linux-androideabi-"
-    make -j$(nproc --all) O=$TOP/out $MAKE_PARAMS
+    local MAKE_PARAMS="ARCH=arm64 CC=clang CLANG_TRIPLE=aarch64-linux-gnu-"
+    if [[ $TARGET_USES_GCC ]]; then
+        local MAKE_GCC_PARAMS="CROSS_COMPILE=aarch64-linux-android- \
+                               CROSS_COMPILE_ARM32=arm-linux-androideabi-"
+    fi
+    if [[ $TARGET_USES_GCC ]]; then
+        make -j$(nproc --all) O=$TOP/out $MAKE_PARAMS $MAKE_GCC_PARAMS
+    else
+        make -j$(nproc --all) O=$TOP/out $MAKE_PARAMS
+    fi
     cd $TOP
 }
 
