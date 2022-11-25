@@ -67,6 +67,9 @@ function displayDeviceInfo() {
     echo "KERNEL_DIR=$KERNEL_DIR"
     echo "HOST_OS=$HOST_OS"
     echo "HOST_OS_EXTRA=$HOST_OS_EXTRA"
+    if [[ $TARGET_USES_GCC ]]; then
+        echo "HOST_COMPILER_GCC_VERSION=$TARGET_GCC_VERSION"
+    fi
     echo "HOST_COMPILER=clang $TARGET_CLANG"
     echo "HOST_COMPILER_VERSION=$TARGET_CLANG_VERSION"
     echo "HOST_COMPILER_PATH=$COMPILER_PATH"
