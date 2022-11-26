@@ -94,16 +94,13 @@ function setupCompiler() {
 
 function buildDefconfig() {
     local TOP=$(getTop)
-    if [ -d $KERNEL_DIR ]; then
-        cd $TOP/$KERNEL_DIR
-        local MAKE_PARAMS="ARCH=arm64 CC=clang CLANG_TRIPLE=aarch64-linux-gnu- \
-                    CROSS_COMPILE=aarch64-linux-android- \
-                    CROSS_COMPILE_ARM32=arm-linux-androideabi-"
-        make O=$TOP/out $MAKE_PARAMS $KERNEL_DEFCONFIG
-        cd $TOP
-    else
-        echo "error: Kernel directory not found!"
-    fi
+    checkKernelDirectory
+    cd $TOP/$KERNEL_DIR
+    local MAKE_PARAMS="ARCH=arm64 CC=clang CLANG_TRIPLE=aarch64-linux-gnu- \
+                CROSS_COMPILE=aarch64-linux-android- \
+                CROSS_COMPILE_ARM32=arm-linux-androideabi-"
+    make O=$TOP/out $MAKE_PARAMS $KERNEL_DEFCONFIG
+    cd $TOP
 }
 
 function buildKernelImage() {
@@ -125,4 +122,14 @@ function buildKernelImage() {
 function buildKernel() {
     buildDefconfig
     buildKernelImage
+}
+
+function checkKernelDirectory() {
+    local TOP=$(getTop)
+    if [ -d $KERNEL_DIR ]; then
+        echo "Kernel directory found at $KERNEL_DIR"
+    else
+        echo "error: Kernel directory not found"
+        return 1
+    fi
 }
