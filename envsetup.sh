@@ -24,6 +24,11 @@ function getTop() {
     fi
 }
 
+function setBuildVariables() {
+    local TOP=$(getTop)
+    source $TOP/build/core/build_vars.sh
+}
+
 function setupDevice() {
 
     local TOP=$(getTop)
@@ -31,6 +36,8 @@ function setupDevice() {
         echo "usage: setDevice [target]" >&2
         return 1
     fi
+
+    setBuildVariables
 
     local DEVICE="$1"
     cd "$TOP"
