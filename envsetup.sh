@@ -95,6 +95,7 @@ function setupCompiler() {
 function buildDefconfig() {
     local TOP=$(getTop)
     checkKernelDirectory
+    displayDeviceInfo $DEVICE
     cd $TOP/$KERNEL_DIR
     local MAKE_PARAMS="ARCH=arm64 CC=clang CLANG_TRIPLE=aarch64-linux-gnu- \
                 CROSS_COMPILE=aarch64-linux-android- \
@@ -105,6 +106,7 @@ function buildDefconfig() {
 
 function buildKernelImage() {
     local TOP=$(getTop)
+    displayDeviceInfo $DEVICE
     cd $TOP/$KERNEL_DIR
     local MAKE_PARAMS="ARCH=arm64 CC=clang CLANG_TRIPLE=aarch64-linux-gnu-"
     if [[ $TARGET_USES_GCC ]]; then
