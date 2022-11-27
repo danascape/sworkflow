@@ -86,7 +86,8 @@ function displayDeviceInfo() {
 
 function setupCompiler() {
     local TOP=$(getTop)
-    local PREBUILT_PATH="$TOP/prebuilts/clang/host/linux-x86"
+    local PREBUILT_CLANG_PATH="$TOP/prebuilts/clang/host/linux-x86"
+    local PREBUILT_GCC_PATH="$TOP/prebuilts/gcc/linux-x86"
     if [[ $TARGET_CLANG ]]; then
         echo "warning: TARGET_CLANG is already set!"
     else
@@ -94,9 +95,15 @@ function setupCompiler() {
         echo "warning: Setting clang 10 as default!"
         TARGET_CLANG=10
     fi
-    export TARGET_CLANG_VERSION=$($PREBUILT_PATH/clang-$TARGET_CLANG/bin/clang --version | head -n 1 | cut -f1,6,8 -d " ")
-    export COMPILER_PATH="$PREBUILT_PATH/clang-$TARGET_CLANG/bin"
-    export PATH="${COMPILER_PATH}:${PATH}"
+    export TARGET_CLANG_VERSION=$($PREBUILT_CLANG_PATH/clang-$TARGET_CLANG/bin/clang --version | head -n 1 | cut -f1,6,8 -d " ")
+    export CLANG_COMPILER_PATH="$PREBUILT_CLANG_PATH/clang-$TARGET_CLANG/bin"
+    if [[ $TARGET_USES_GCC ]]; then
+        export GCC_ARM_COMPILER_PATH="$PREBUILT_GCC_PATH/arm/arm-linux-androideabi-4.9/bin"
+        export GCC_ARM64_COMPILER_PATH="$PREBUILT_GCC_PATH/aarch64/aarch64-linux-android-4.9/bin"
+        export PATH="${GCC_ARM_COMPILER_PATH}:${GCC_ARM64_COMPILER_PATH}:${CLANG_COMPILER_PATH}:${PATH}"
+    else
+        export PATH="${CLANG_COMPILER_PATH}:${PATH}"
+    fi
 }
 
 function buildDefconfig() {
@@ -104,10 +111,16 @@ function buildDefconfig() {
     checkKernelDirectory
     displayDeviceInfo $DEVICE
     cd $TOP/$KERNEL_DIR
-    local MAKE_PARAMS="ARCH=arm64 CC=clang CLANG_TRIPLE=aarch64-linux-gnu- \
-                CROSS_COMPILE=aarch64-linux-android- \
-                CROSS_COMPILE_ARM32=arm-linux-androideabi-"
-    make O=$TOP/out $MAKE_PARAMS $KERNEL_DEFCONFIG
+    local MAKE_PARAMS="ARCH=arm64 CC=clang CLANG_TRIPLE=aarch64-linux-gnu-"
+    if [[ $TARGET_USES_GCC ]]; then
+        local MAKE_GCC_PARAMS="CROSS_COMPILE=aarch64-linux-android- \
+                               CROSS_COMPILE_ARM32=arm-linux-androideabi-"
+    fi
+    if [[ $TARGET_USES_GCC ]]; then
+        make -j$(nproc --all) O=$TOP/out $MAKE_PARAMS $MAKE_GCC_PARAMS $KERNEL_DEFCONFIG
+    else
+        make -j$(nproc --all) O=$TOP/out $MAKE_PARAMS $KERNEL_DEFCONFIG
+    fi
     cd $TOP
 }
 
