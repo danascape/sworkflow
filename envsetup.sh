@@ -141,7 +141,7 @@ function checkKernelDirectory() {
     else
         echo "warning: Kernel directory not found"
         echo "warning: Trying to clone the repository"
-        source $TOP/build/repository/repository.sh
+        source $TOP/build/repository/repository.sh $DEVICE
         return 1
     fi
 }
