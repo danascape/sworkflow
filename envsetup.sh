@@ -139,7 +139,9 @@ function checkKernelDirectory() {
     if [ -d $KERNEL_DIR ]; then
         echo "Kernel directory found at $KERNEL_DIR"
     else
-        echo "error: Kernel directory not found"
+        echo "warning: Kernel directory not found"
+        echo "warning: Trying to clone the repository"
+        source $TOP/build/repository/repository.sh
         return 1
     fi
 }
