@@ -40,20 +40,21 @@ function cloneDevice() {
 
     echo "warning: Attempting to clone device repository"
 
-    git clone --depth=1 $GITHUB_ORG_lINK/$DEVICE $TOP/$KERNEL_DIR  >/dev/null 2>&1 || cloneError
+    git clone --depth=1 $GITHUB_ORG_lINK/$DEVICE $TOP/$KERNEL_DIR || cloneError
     if [[ -f $KERNEL_DIR/Makefile ]]; then
         echo "warning: Kernel source synced at $KERNEL_DIR"
     else
         echo ""
         echo "error: Something went wrong while cloning."
         echo ""
-        exit 1
+        return
     fi
 }
 
 function cloneError() {
     echo "error: Failed to clone Device Kernel Source"
     echo "error: This can be caused due to the device not being maintained"
+    return
 }
 
 cloneDevice

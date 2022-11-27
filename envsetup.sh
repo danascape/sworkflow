@@ -136,12 +136,12 @@ function buildKernel() {
 
 function checkKernelDirectory() {
     local TOP=$(getTop)
-    if [ -d $KERNEL_DIR ]; then
+    if [ -d $TOP/$KERNEL_DIR ]; then
         echo "Kernel directory found at $KERNEL_DIR"
     else
         echo "warning: Kernel directory not found"
         echo "warning: Trying to clone the repository"
         source $TOP/build/repository/repository.sh $DEVICE $KERNEL_DIR
-        return 1
+        return
     fi
 }
