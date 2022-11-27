@@ -5,3 +5,6 @@
 #
 # SPDX-License-Identifier: Apache-2.0 license
 #
+
+KBUILD_BUILD_HOST="Saalim"
+KBUILD_BUILD_USER="StormCI"
