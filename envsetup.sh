@@ -106,6 +106,7 @@ function buildDefconfig() {
 
 function buildKernelImage() {
     local TOP=$(getTop)
+    checkKernelDirectory
     displayDeviceInfo $DEVICE
     cd $TOP/$KERNEL_DIR
     local MAKE_PARAMS="ARCH=arm64 CC=clang CLANG_TRIPLE=aarch64-linux-gnu-"
