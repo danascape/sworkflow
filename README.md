@@ -1,4 +1,4 @@
-<h1 align="center">StormBreaker CI</h1>
+<h1 align="center">Kernel Build System</h1>
 
 # License
 ```xml
