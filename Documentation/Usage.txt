@@ -3,3 +3,7 @@ Kernel build system usage:
 Ways to specify what to build:
     # Set up the shell environment.
     source build/envsetup.sh
+
+    # Select the device to target. In the case of no argument,
+    # the script will fail.
+    setupDevice [<target>] # Selects the device to target
