@@ -1,5 +1,7 @@
 <h1 align="center">Kernel Build System</h1>
 
+For documentation on how to run a build, see
+<a alt="Usage" href="Documentation/Usage.txt">Usage.txt</a><br>
 # License
 ```xml
 Copyright 2019 danascape (Saalim Quadri)
