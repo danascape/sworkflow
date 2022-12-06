@@ -1,3 +1,6 @@
+* The device tree is a device configuration script that is picked up by the build system as per the specified target.
+* The device tree consists of device specific which defines the target product properties.
+
 ## Ways to generate the device-specific tree structure
 
 ### The tree is generated to define device specific flags.
