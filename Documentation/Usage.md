@@ -59,8 +59,19 @@ Ways to generate the device-specific tree structure
     # Define if the target uses GCC-4.9 or less
     TARGET_USES_GCC
 
-  Building Kernel
-  <br>
+Syncing the source code
+<br>
+It is required to first correctly download the source code,
+which includes the compilers and the build repository.
+<br>
+You can do so by :- <br>
+`repo init -u https://github.com/StormBreaker-Infrastructure/kernel_manifest -b main`
+<br>
+`repo sync`
+<br>
+
+Building Kernel
+<br>
   You can execute a sample build by :-
   `source build/envsetup.sh`
   <br>
