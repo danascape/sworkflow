@@ -16,4 +16,8 @@ Ways to specify what to build:
 
     # Build both defconfig and kernel image.
     # This will select both the defconfig and the kernel image target.
-    buildKernel 
+    buildKernel
+
+Ways to generate the device-specific tree structure
+    # The tree is generated to define device specific flags.
+    # Reference device tree can be found at https://github.com/StormBreaker-Devices/kernel_device_asus_X00P.
