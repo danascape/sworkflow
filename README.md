@@ -5,7 +5,7 @@
 </p>
 
 For documentation on how to run a build, see
-<a alt="Usage" href="Documentation/Usage.txt">Usage.txt</a><br>
+<a alt="Usage" href="Documentation/Usage.md">Usage.md</a><br>
 # License
 ```xml
 Copyright 2019 danascape (Saalim Quadri)
