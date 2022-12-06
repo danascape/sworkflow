@@ -7,3 +7,13 @@ Ways to specify what to build:
     # Select the device to target. In the case of no argument,
     # the script will fail.
     setupDevice [<target>] # Selects the device to target
+
+    # Build the kernel defconfig.
+    buildDefconfig
+
+    # Build the kernel image.
+    buildKernelImage
+
+    # Build both defconfig and kernel image.
+    # This will select both the defconfig and the kernel image target.
+    buildKernel 
