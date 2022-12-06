@@ -43,3 +43,8 @@ Ways to generate the device-specific tree structure
     # Define the device kernel defconfig
     # The defconfig will be located in `${KERNEL_DIR}/arch/${TARGET_ARCH}/configs`
     KERNEL_DEFCONFIG
+
+    # The following flags are optional.
+
+    # Define if the target uses GCC-4.9 or less
+    TARGET_USES_GCC
