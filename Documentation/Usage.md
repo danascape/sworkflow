@@ -58,3 +58,11 @@ Ways to generate the device-specific tree structure
 
     # Define if the target uses GCC-4.9 or less
     TARGET_USES_GCC
+
+  Building Kernel
+  <br>
+  You can execute a sample build by :-
+  `source build/envsetup.sh`
+  `selectDevice X00P`
+  `buildDefconfig`
+  `buildKernelImage`
