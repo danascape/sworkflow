@@ -37,6 +37,9 @@ Ways to generate the device-specific tree structure
     # No specific usage except the menu display
     TARGET_KERNEL_VERSION
 
+    # Define the Kernel source directory.
+    KERNEL_DIR
+
     # Define the device kernel defconfig
     # The defconfig will be located in `${KERNEL_DIR}/arch/${TARGET_ARCH}/configs`
     KERNEL_DEFCONFIG
