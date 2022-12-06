@@ -6,7 +6,7 @@
 
 ### Define the device codename.
 ### This is used by the repository script to fetch repositories from the organization.
-   TARGET_DEVICE_CODENAME
+    TARGET_DEVICE_CODENAME
 
 ### Define the device kernel version.
 ### No specific usage except the menu display
