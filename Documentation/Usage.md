@@ -63,6 +63,9 @@ Ways to generate the device-specific tree structure
   <br>
   You can execute a sample build by :-
   `source build/envsetup.sh`
+  <br>
   `selectDevice X00P`
+  <br>
   `buildDefconfig`
+  <br>
   `buildKernelImage`
