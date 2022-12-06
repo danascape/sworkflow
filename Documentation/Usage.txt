@@ -21,3 +21,9 @@ Ways to specify what to build:
 Ways to generate the device-specific tree structure
     # The tree is generated to define device specific flags.
     # Reference device tree can be found at https://github.com/StormBreaker-Devices/kernel_device_asus_X00P.
+
+    # The current required flags are as follows
+
+    # Define the architecture of the kernel source code.
+    # This is used by `make` to generate the kernel targets.
+    TARGET_ARCH
