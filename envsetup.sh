@@ -26,7 +26,7 @@ function getTop() {
 
 function setBuildVariables() {
     local TOP=$(getTop)
-    source $TOP/build/core/build_vars.sh
+    source $TOP/build/src/build_vars.sh
 }
 
 function setupDevice() {
@@ -154,7 +154,7 @@ function checkKernelDirectory() {
     else
         echo "warning: Kernel directory not found"
         echo "warning: Trying to clone the repository"
-        source $TOP/build/repository/repository.sh $TARGET_DEVICE_CODENAME $KERNEL_DIR
+        source $TOP/build/src/repository.sh $TARGET_DEVICE_CODENAME $KERNEL_DIR
         return
     fi
 }
