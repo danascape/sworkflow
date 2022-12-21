@@ -142,11 +142,6 @@ function buildKernelImage() {
     cd $TOP
 }
 
-function buildKernel() {
-    buildDefconfig
-    buildKernelImage
-}
-
 function checkKernelDirectory() {
     local TOP=$(getTop)
     if [ -d $TOP/$KERNEL_DIR ]; then
