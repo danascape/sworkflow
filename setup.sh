@@ -6,6 +6,9 @@
 # SPDX-License-Identifier: Apache-2.0 license
 #
 
+SWORKFLOW="sw"
 function sw() {
 	echo "Hello World"
 }
+
+export sw
