@@ -6,9 +6,7 @@
 # SPDX-License-Identifier: Apache-2.0 license
 #
 
-SWORKFLOW="sw"
-function sw() {
-	echo "Hello World"
-}
+## source code directories
+declare -r SRCDIR=$(pwd)
 
-export sw
+source $SRCDIR/sw
