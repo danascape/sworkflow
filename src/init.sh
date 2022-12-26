@@ -5,3 +5,6 @@
 #
 # SPDX-License-Identifier: Apache-2.0 license
 #
+
+## Export the global variables to PATH
+source $SRCDIR/build_vars.sh
