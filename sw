@@ -6,4 +6,16 @@
 # SPDX-License-Identifier: Apache-2.0 license
 #
 
-echo "Hello World"
+function sw() {
+	argument="$1"
+
+	case "$argument" in
+		build)
+			(
+			echo "Starting build!"
+		)
+		;;
+esac
+}
+
+sw "$@"
