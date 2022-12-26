@@ -13,6 +13,7 @@ function sw() {
 		build)
 			(
 			echo "Starting build!"
+			source $SRCDIR/src/init.sh
 		)
 		;;
 esac

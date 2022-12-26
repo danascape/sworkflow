@@ -7,8 +7,8 @@
 #
 
 ## Build variables
-KBUILD_BUILD_HOST="Saalim"
-KBUILD_BUILD_USER="StormCI"
+export KBUILD_BUILD_HOST="Saalim"
+export KBUILD_BUILD_USER="StormCI"
 
 ## Tool references
-VERSION="v0.1"
+export VERSION="v0.1"
