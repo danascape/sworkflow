@@ -6,6 +6,15 @@
 # SPDX-License-Identifier: Apache-2.0 license
 #
 
+# Check for variable
+if [[ $SRCDIR ]]; then
+	echo ""
+else
+	echo "error: SRCDIR variable not defined!"
+	echo "error: Run setup.sh script and try again."
+	exit 1
+fi
+
 function sw() {
 	argument="$1"
 
