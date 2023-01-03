@@ -78,8 +78,6 @@ function kernel_build() {
 	end=$(date +%s)
 
 	time=$((end - start))
-
-	echo $time
-
-
+	elapsed_time=$(date -d@"$time" -u +%H:%M:%S)
+	echo "-> Execution time: $elapsed_time"
 }
