@@ -69,5 +69,17 @@ function kernel_build() {
 
 	make O=out -j$parallel_threads ARCH=$kernel_arch $kernel_defconfig
 
-	make O=out -j$parallel_threads ARCH=$kernel_arch $cross_compile $cross_compile_arm32
+	command="make O=out -j$parallel_threads ARCH=$kernel_arch $cross_compile $cross_compile_arm32"
+
+	start=$(date +%s)
+	
+	$command
+	
+	end=$(date +%s)
+
+	time=$((end - start))
+
+	echo $time
+
+
 }
