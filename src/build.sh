@@ -34,12 +34,14 @@ function check_kernel() {
 	else
 		echo "error: No config file found"
 		echo "error: Refer to docs for more"
+		exit 125
 	fi
 
 }
 
 function kernel_build() {
-	echo "Starting Kernel Build!"
 	device="$3"
 	check_kernel $device
+	echo "Starting Kernel Build!"
+
 }
