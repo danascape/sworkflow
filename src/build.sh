@@ -9,10 +9,11 @@
 . $SW_SRC_DIR/src/build_vars.sh --source-only
 . $SW_SRC_DIR/src/sw_functions.sh --source-only
 
-
 # Check if the kernel config already exists for a particular device.
 # This check is being performed to add support for official devices.
 function check_kernel() {
+	parse_build_arguments "$1"
+
 	local device
 	device="$1"
 	echo "Checking if kernel config exists for $device"
@@ -80,4 +81,19 @@ function kernel_build() {
 	time=$((end - start))
 	elapsed_time=$(date -d@"$time" -u +%H:%M:%S)
 	echo "-> Execution time: $elapsed_time"
+}
+
+function parse_build_arguments() {
+	if [[ "$?" != 0 ]]; then
+		return 22 # EINVAL	
+	fi
+
+	while [[ "$#" -gt 0 ]]; do
+		case "$1" in
+			*)
+				echo "error: Invalid Argument"
+				exit 22 # EINVAL
+				;;
+		esac	
+	done
 }
