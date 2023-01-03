@@ -41,6 +41,13 @@ function sw() {
 		sworkflow_help
 	)
 	;;
+	man | m)
+		(
+		. $SW_SRC_DIR/src/help.sh --source-only
+
+		sworkflow_help
+	)
+	;;
 	*)
 		(
 		echo "error: Invalid Option"
