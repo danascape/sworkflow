@@ -52,7 +52,15 @@ function kernel_build() {
 		exit 125
 	fi
 
+	if [[ -n "$cross_compile" ]]; then
+		cross_compile="CROSS_COMPILE=$cross_compile"
+	fi
+
+	if [[ -n "$cross_compile_arm32" ]]; then
+		cross_compile_arm32="CROSS_COMPILE_ARM32=$cross_compile_arm32"
+	fi
+
 	make O=out ARCH=$kernel_arch $kernel_defconfig
 
-	make O=out ARCH=$kernel_arch
+	make O=out ARCH=$kernel_arch $cross_compile $cross_compile_arm32
 }
