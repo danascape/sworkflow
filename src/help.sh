@@ -6,7 +6,6 @@
 # SPDX-License-Identifier: Apache-2.0 license
 #
 
-function kernel_build() {
-	echo "Starting Kernel Build!"
+function sworkflow_help() {
+	echo "Usage: sw [options]"
 }
-

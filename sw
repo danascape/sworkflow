@@ -6,11 +6,16 @@
 # SPDX-License-Identifier: Apache-2.0 license
 #
 
+## Global Paths
+
+# SW source directory
+SW_SRC_DIR="$HOME/sworkflow"
+
 # Check for variable
-if [[ $SRCDIR ]]; then
+if [[ $SW_SRC_DIR ]]; then
 	echo ""
 else
-	echo "error: SRCDIR variable not defined!"
+	echo "error: SW_SRC_DIR variable not defined!"
 	echo "error: Run setup.sh script and try again."
 	exit 1
 fi
@@ -21,10 +26,21 @@ function sw() {
 	case "$argument" in
 		build)
 			(
-			echo "Starting build!"
-			source $SRCDIR/src/init.sh
+			. $SW_SRC_DIR/src/build.sh --source-only
+
+			kernel_build '' '$@'
+
 		)
 		;;
+	*)
+		(
+		echo "error: Invalid Option"
+		. $SW_SRC_DIR/src/help.sh --source-only
+
+		sworkflow_help
+
+	)
+
 esac
 }
 
