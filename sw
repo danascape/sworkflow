@@ -48,6 +48,13 @@ function sw() {
 		sworkflow_help
 	)
 	;;
+	version | v)
+		(
+		. $SW_SRC_DIR/src/version.sh --source-only
+
+		sworkflow_version
+	)
+	;;
 	*)
 		(
 		echo "error: Invalid Option"
