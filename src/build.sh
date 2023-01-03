@@ -47,6 +47,13 @@ function kernel_build() {
 	device="$3"
 	check_kernel $device
 	echo "Starting Kernel Build!"
+
+	if [[ -z "$(which nproc)" ]]; then
+		parallel_threads=$(nproc --all)
+	else
+		parallel_threads=$(grep -c ^processor /proc/cpuinfo)
+	fi
+
 	if ! is_kernel_root "$PWD"; then
 		echo "Execute this command in a kernel tree."
 		exit 125
@@ -60,7 +67,7 @@ function kernel_build() {
 		cross_compile_arm32="CROSS_COMPILE_ARM32=$cross_compile_arm32"
 	fi
 
-	make O=out ARCH=$kernel_arch $kernel_defconfig
+	make O=out -j$parallel_threads ARCH=$kernel_arch $kernel_defconfig
 
-	make O=out ARCH=$kernel_arch $cross_compile $cross_compile_arm32
+	make O=out -j$parallel_threads ARCH=$kernel_arch $cross_compile $cross_compile_arm32
 }
