@@ -13,7 +13,8 @@ SW_SRC_DIR="$HOME/sworkflow"
 
 # Check for variable
 if [[ $SW_SRC_DIR ]]; then
-	echo ""
+	echo "warning: Using hardcode directory is not recommended"
+	echo "warning: Refer to https://github.com/danascape/sworkflow/issues/12 for more"
 else
 	echo "error: SW_SRC_DIR variable not defined!"
 	echo "error: Run setup.sh script and try again."
