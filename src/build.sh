@@ -6,6 +6,9 @@
 # SPDX-License-Identifier: Apache-2.0 license
 #
 
+. $SW_SRC_DIR/src/sw_functions.sh --source-only
+
+
 # Check if the kernel config already exists for a particular device.
 # This check is being performed to add support for official devices.
 function check_kernel() {
@@ -43,5 +46,8 @@ function kernel_build() {
 	device="$3"
 	check_kernel $device
 	echo "Starting Kernel Build!"
-
+	if ! is_kernel_root "$PWD"; then
+		echo "Execute this command in a kernel tree."
+		exit 125
+	fi
 }
