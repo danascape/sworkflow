@@ -51,4 +51,8 @@ function kernel_build() {
 		echo "Execute this command in a kernel tree."
 		exit 125
 	fi
+
+	make O=out ARCH=$KERNEL_ARCH $KERNEL_DEFCONFIG
+
+	make O=out ARCH=$KERNEL_ARCH
 }
