@@ -52,7 +52,7 @@ function kernel_build() {
 		exit 125
 	fi
 
-	make O=out ARCH=$KERNEL_ARCH $KERNEL_DEFCONFIG
+	make O=out ARCH=$kernel_arch $kernel_defconfig
 
-	make O=out ARCH=$KERNEL_ARCH
+	make O=out ARCH=$kernel_arch
 }
