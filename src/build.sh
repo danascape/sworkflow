@@ -6,6 +6,7 @@
 # SPDX-License-Identifier: Apache-2.0 license
 #
 
+. $SW_SRC_DIR/src/build_vars.sh --source-only
 . $SW_SRC_DIR/src/sw_functions.sh --source-only
 
 
