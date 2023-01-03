@@ -24,7 +24,7 @@ function sw() {
 	argument="$1"
 
 	case "$argument" in
-		build)
+		build | b)
 			(
 			. $SW_SRC_DIR/src/build.sh --source-only
 
@@ -32,6 +32,13 @@ function sw() {
 
 		)
 		;;
+	help | h)
+		(
+		. $SW_SRC_DIR/src/help.sh --source-only
+
+		sworkflow_help
+	)
+	;;
 	*)
 		(
 		echo "error: Invalid Option"
@@ -40,6 +47,7 @@ function sw() {
 		sworkflow_help
 
 	)
+	;;
 
 esac
 }
