@@ -28,7 +28,7 @@ function sw() {
 			(
 			. $SW_SRC_DIR/src/build.sh --source-only
 
-			kernel_build '' '$@'
+			kernel_build '' "$@"
 
 		)
 		;;
