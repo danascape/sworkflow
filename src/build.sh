@@ -62,20 +62,26 @@ function kernel_build() {
 
 	if [[ -n "$cross_compile" ]]; then
 		cross_compile="CROSS_COMPILE=$cross_compile"
+		MAKE+=( $cross_compile )
 	fi
 
 	if [[ -n "$cross_compile_arm32" ]]; then
 		cross_compile_arm32="CROSS_COMPILE_ARM32=$cross_compile_arm32"
+		MAKE+=( $cross_compile_arm32 )
 	fi
 
 	if [[ -n "$use_clang" ]]; then
 		cc="CC=clang"
-		clang_triple="CLANG_TRIPLE=aarch64-linux-gnu"
+		clang_triple="CLANG_TRIPLE=aarch64-linux-gnu-"
+		MAKE+=(
+			$cc \
+			$clang_triple )
 	fi
 
 	make O=out -j$parallel_threads ARCH=$kernel_arch $kernel_defconfig
 
-	command="make O=out -j$parallel_threads ARCH=$kernel_arch $cc $clang_triple $cross_compile $cross_compile_arm32"
+	echo "${MAKE[@]}"
+	command="make O=out -j$parallel_threads ARCH=$kernel_arch "${MAKE[@]}""
 
 	start=$(date +%s)
 	
