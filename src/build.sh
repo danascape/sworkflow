@@ -12,7 +12,7 @@
 # Check if the kernel config already exists for a particular device.
 # This check is being performed to add support for official devices.
 function check_kernel() {
-	parse_build_arguments "$1"
+#	parse_build_arguments "$1"
 
 	local device
 	device="$1"
