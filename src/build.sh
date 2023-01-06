@@ -78,9 +78,8 @@ function kernel_build() {
 			$clang_triple )
 	fi
 
-	make O=out -j$parallel_threads ARCH=$kernel_arch $kernel_defconfig
+	make O=out -j$parallel_threads ARCH=$kernel_arch "${MAKE[@]}" $kernel_defconfig
 
-	echo "${MAKE[@]}"
 	command="make O=out -j$parallel_threads ARCH=$kernel_arch "${MAKE[@]}""
 
 	start=$(date +%s)
