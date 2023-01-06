@@ -8,4 +8,7 @@
 
 function sworkflow_help() {
 	echo "Usage: sw [options]"
+
+	echo -e "\nCommands\n" \
+		"\tbuild,b - Build Kernel\n"
 }
