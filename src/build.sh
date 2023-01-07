@@ -78,6 +78,13 @@ function kernel_build() {
 			$clang_triple )
 	fi
 
+	if [[ -f arch/arm64/configs/$kernel_defconfig ]]; then
+		echo ""
+	else
+		echo "error: Defconfig not found!"
+		exit 22
+	fi
+
 	make O=out -j$parallel_threads ARCH=$kernel_arch "${MAKE[@]}" $kernel_defconfig
 
 	command="make O=out -j$parallel_threads ARCH=$kernel_arch "${MAKE[@]}""
