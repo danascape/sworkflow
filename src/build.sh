@@ -49,7 +49,7 @@ function kernel_build() {
 	check_kernel $device
 	echo "Starting Kernel Build!"
 
-	if [[ -z "$(which nproc)" ]]; then
+	if [[ -z "$(command -v nproc)" ]]; then
 		parallel_threads=$(nproc --all)
 	else
 		parallel_threads=$(grep -c ^processor /proc/cpuinfo)
