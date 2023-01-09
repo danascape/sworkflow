@@ -5,3 +5,6 @@
 #
 # SPDX-License-Identifier: Apache-2.0 license
 #
+
+## Color codes that will be used
+RED_COLOR='\033[0;31m'
