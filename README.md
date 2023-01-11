@@ -7,6 +7,13 @@
 For documentation on how to run a build, see
 <a alt="Usage" href="Documentation/Usage.md">Usage.md</a><br>
 
+# Contributing
+We appreciate that you want to contribute to the project's improvement.
+If you are looking for a good starting point, check
+[these issues](https://github.com/danascape/sworkflow/labels/good%20first%20issue)
+and don't forget to read our
+[Contribuitor's Guide](https://github.com/danascape/sworkflow/blob/main/CONTRIBUTING.md).
+
 # License
 ```xml
 Copyright 2019 danascape (Saalim Quadri)
