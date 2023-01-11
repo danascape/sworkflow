@@ -14,6 +14,9 @@ If you are looking for a good starting point, check
 and don't forget to read our
 [Contribuitor's Guide](https://github.com/danascape/sworkflow/blob/main/CONTRIBUTING.md).
 
+# Contact
+The best way to connect or get help is by creating [issues](https://github.com/danascape/sworkflow/issues) or by making a [pull request](https://github.com/danascape/sworkflow/pulls).
+
 # License
 ```xml
 Copyright 2019 danascape (Saalim Quadri)
