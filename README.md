@@ -7,6 +7,14 @@
 For documentation on how to run a build, see
 <a alt="Usage" href="Documentation/Usage.md">Usage.md</a><br>
 
+# How to compile
+To run a build for a supported device, run:
+
+```
+./sw build <device-name>
+```
+
+
 # Contributing
 We appreciate that you want to contribute to the project's improvement.
 If you are looking for a good starting point, check
