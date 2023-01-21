@@ -99,10 +99,16 @@ kernel_build() {
 	if [[ -n "$create_dtbo" ]]; then
 		echo "warning: Creating dtbo"
 		dtbo_path="out/arch/$kernel_arch/boot/dtbo.img"
-		if [[ -n $dtbo_path ]]; then
+		if [[ -f $dtbo_path ]]; then
 			echo "warning: DTBO image already present!"
 		else
-			python3 $SW_SRC_DIR/utils/src/mkdtboimg.py create "out/arch/$kernel_arch/boot/dtbo.img" --page_size="$dtbo_page_size" $dtbo_arch_path
+			if [[ -n "$dtbo_page_size" ]]; then
+				python3 $SW_SRC_DIR/utils/src/mkdtboimg.py create "out/arch/$kernel_arch/boot/dtbo.img"
+--page_size="$dtbo_page_size" $dtbo_arch_path
+			else
+				echo "error: DTBO page size not defined!"
+				exit 22
+			fi
 		fi
 	fi
 
