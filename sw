@@ -12,7 +12,7 @@
 SW_SRC_DIR="$HOME/sworkflow"
 
 # Check for variable
-if [[ $SW_SRC_DIR ]]; then
+if [[ -d $SW_SRC_DIR ]]; then
 	echo "warning: Using hardcode directory is not recommended"
 	echo "warning: Refer to https://github.com/danascape/sworkflow/issues/12 for more"
 	echo ""
