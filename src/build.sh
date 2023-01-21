@@ -96,6 +96,11 @@ kernel_build() {
 	
 	$command
 	
+	if [[ -n "$create_dtbo" ]]; then
+		echo "warning: Creating dtbo"
+	fi
+
+
 	end=$(date +%s)
 
 	time=$((end - start))
