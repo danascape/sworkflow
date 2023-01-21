@@ -60,6 +60,10 @@ function kernel_build() {
 		exit 125
 	fi
 
+	if [[ -n "$build_silent" ]]; then
+		MAKE+=( -s )
+	fi
+
 	if [[ -n "$cross_compile" ]]; then
 		cross_compile="CROSS_COMPILE=$cross_compile"
 		MAKE+=( $cross_compile )
