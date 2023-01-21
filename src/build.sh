@@ -98,6 +98,7 @@ kernel_build() {
 	
 	if [[ -n "$create_dtbo" ]]; then
 		echo "warning: Creating dtbo"
+		python3 $SW_SRC_DIR/utils/src/mkdtboimg.py create "out/arch/$kernel_arch/boot/dtbo.img" --page_size="$dtbo_page_size" $dtbo_arch_path
 	fi
 
 
