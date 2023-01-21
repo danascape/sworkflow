@@ -77,8 +77,7 @@ kernel_build() {
 	if [[ -n "$use_clang" ]]; then
 		cc="CC=clang"
 		clang_triple="CLANG_TRIPLE=aarch64-linux-gnu-"
-		MAKE+=(
-			$cc \
+		MAKE+=( $cc \
 			$clang_triple )
 	fi
 
