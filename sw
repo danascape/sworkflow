@@ -22,7 +22,7 @@ else
 	exit 1
 fi
 
-function sw() {
+sw() {
 	argument="$1"
 
 	case "$argument" in

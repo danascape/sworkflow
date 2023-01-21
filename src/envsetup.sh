@@ -6,7 +6,7 @@
 # SPDX-License-Identifier: Apache-2.0 license
 #
 
-function getTop() {
+getTop() {
     local TOPFILE=build/envsetup.sh
     if [[ -f "$TOPFILE" ]] ; then
         PWD= /bin/pwd
@@ -24,12 +24,12 @@ function getTop() {
     fi
 }
 
-function setBuildVariables() {
+setBuildVariables() {
     local TOP=$(getTop)
     source $TOP/build/src/build_vars.sh
 }
 
-function setupDevice() {
+setupDevice() {
 
     local TOP=$(getTop)
     if [[ $# = 0 ]]; then
@@ -54,7 +54,7 @@ function setupDevice() {
     fi
 }
 
-function displayDeviceInfo() {
+displayDeviceInfo() {
 
     if [[ $# = 0 ]]; then
         echo "usage: displayDeviceInfo [target]" >&2
@@ -84,7 +84,7 @@ function displayDeviceInfo() {
     echo "============================================"
 }
 
-function setupCompiler() {
+setupCompiler() {
     local TOP=$(getTop)
     local PREBUILT_CLANG_PATH="$TOP/prebuilts/clang/host/linux-x86"
     local PREBUILT_GCC_PATH="$TOP/prebuilts/gcc/linux-x86"
@@ -106,7 +106,7 @@ function setupCompiler() {
     fi
 }
 
-function buildDefconfig() {
+buildDefconfig() {
     local TOP=$(getTop)
     checkKernelDirectory
     displayDeviceInfo $DEVICE
@@ -124,7 +124,7 @@ function buildDefconfig() {
     cd $TOP
 }
 
-function buildKernelImage() {
+buildKernelImage() {
     local TOP=$(getTop)
     checkKernelDirectory
     displayDeviceInfo $DEVICE
@@ -142,7 +142,7 @@ function buildKernelImage() {
     cd $TOP
 }
 
-function checkKernelDirectory() {
+checkKernelDirectory() {
     local TOP=$(getTop)
     if [ -d $TOP/$KERNEL_DIR ]; then
         echo "Kernel directory found at $KERNEL_DIR"

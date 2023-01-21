@@ -16,7 +16,7 @@ GITHUB_ORG_lINK="https://github.com/stormbreaker-project"
 DEVICE="$1"
 KERNEL_DIR="$2"
 
-function getTop() {
+getTop() {
     local TOPFILE=build/envsetup.sh
     if [[ -f "$TOPFILE" ]] ; then
         PWD= /bin/pwd
@@ -35,7 +35,7 @@ function getTop() {
 }
 
 # Clone the device repository
-function cloneDevice() {
+cloneDevice() {
     local TOP=$(getTop)
 
     echo "warning: Attempting to clone device repository"
@@ -51,7 +51,7 @@ function cloneDevice() {
     fi
 }
 
-function cloneError() {
+cloneError() {
     echo "error: Failed to clone Device Kernel Source"
     echo "error: This can be caused due to the device not being maintained"
     return

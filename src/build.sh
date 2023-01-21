@@ -11,7 +11,7 @@
 
 # Check if the kernel config already exists for a particular device.
 # This check is being performed to add support for official devices.
-function check_kernel() {
+check_kernel() {
 #	parse_build_arguments "$1"
 
 	local device
@@ -44,7 +44,7 @@ function check_kernel() {
 
 }
 
-function kernel_build() {
+kernel_build() {
 	device="$3"
 	check_kernel $device
 	echo "Starting Kernel Build!"
@@ -104,7 +104,7 @@ function kernel_build() {
 	echo "-> Execution time: $elapsed_time"
 }
 
-function parse_build_arguments() {
+parse_build_arguments() {
 	if [[ "$?" != 0 ]]; then
 		return 22 # EINVAL	
 	fi
