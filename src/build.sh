@@ -21,21 +21,21 @@ check_kernel() {
 		for dir in device; do
 			for f in $(cd "$SW_SRC_DIR" && test -d $dir && \
 				find -L $SW_SRC_DIR -maxdepth 4 -name "sworkflow.$device.config" | sort); do
-				        echo "including $f"; . "$f" --source-only
+				        echo "sworkflow: Including $f"; . "$f" --source-only
 			done
 		done
-		echo "warning: sworkflow.$device.config found"
-		echo "warning: Exporting the defined variables"
+		echo "sworkflow: sworkflow.$device.config found"
+		echo "sworkflow: Exporting the defined variables"
 	elif [[ -n $(find -L $(pwd) -maxdepth 2 -name "sworkflow.$device.config") ]]; then
 		for dir in device; do
 			for f in $(cd $(pwd) && test -d $dir && \
 				find -L $(pwd) -maxdepth 4 -name "sworkflow.$device.config" | sort); do
-				        echo "including $f"; . "$f" --source-only
+				        echo "sworkflow: Including $f"; . "$f" --source-only
 			done
 		done
 		echo $test
-		echo "warning: sworkflow.$device.config found outside the tree"
-		echo "warning: Exporting the variables"
+		echo "sworkflow: sworkflow.$device.config found outside the tree"
+		echo "sworkflow: Exporting the variables"
 	else
 		echo "error: No config file found"
 		echo "error: Refer to docs for more"
@@ -47,7 +47,7 @@ check_kernel() {
 kernel_build() {
 	device="$3"
 	check_kernel $device
-	echo "Starting Kernel Build!"
+	echo "sworkflow: Starting Kernel Build!"
 
 	if [[ -z "$(command -v nproc)" ]]; then
 		parallel_threads=$(nproc --all)
@@ -56,7 +56,7 @@ kernel_build() {
 	fi
 
 	if ! is_kernel_root "$PWD"; then
-		echo "Execute this command in a kernel tree."
+		echo "error: Execute this command in a kernel tree."
 		exit 125
 	fi
 
@@ -97,7 +97,7 @@ kernel_build() {
 	$command
 	
 	if [[ -n "$create_dtbo" ]]; then
-		echo "warning: Creating dtbo"
+		echo "sworkflow: Creating dtbo"
 		dtbo_path="out/arch/$kernel_arch/boot/dtbo.img"
 		if [[ -f $dtbo_path ]]; then
 			echo "warning: DTBO image already present!"
@@ -121,7 +121,7 @@ kernel_build() {
 
 	time=$((end - start))
 	elapsed_time=$(date -d@"$time" -u +%H:%M:%S)
-	echo "-> Execution time: $elapsed_time"
+	echo "-> sworkflow: Execution time: $elapsed_time"
 }
 
 parse_build_arguments() {
