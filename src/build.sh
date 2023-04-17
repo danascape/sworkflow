@@ -83,16 +83,29 @@ kernel_build() {
 	fi
 
 	if [[ -n "$device_arch" ]]; then
-		if [[ -n "$kernel_defconfig" ]]; then
-			if [[ -f arch/$device_arch/configs/"$kernel_defconfig" ]]; then
-				echo ""
+		if [[ -n $kernel_arch ]]; then
+			if [[ -n "$kernel_defconfig" ]]; then
+				if [[ -f arch/"$kernel_arch"/configs/"$kernel_defconfig" ]]; then
+					echo ""
+				else
+					echo "error: Device Defconfig not found!"
+					exit 22
+				fi
 			else
-				echo "error: Device Defconfig not found!"
-				exit 22
+				echo "error: Device Defconfig not defined!"
 			fi
 		else
-			echo "error: Device Config not defined!"
-			exit 22
+			if [[ -n "$kernel_defconfig" ]]; then
+				if [[ -f arch/$device_arch/configs/"$kernel_defconfig" ]]; then
+					echo ""
+				else
+					echo "error: Device Defconfig not found!"
+					exit 22
+				fi
+			else
+				echo "error: Device Defconfig not defined!"
+				exit 22
+			fi
 		fi
 	else
 		echo "error: Device architecture not defined!"
