@@ -82,10 +82,20 @@ kernel_build() {
 			"$clang_triple")
 	fi
 
-	if [[ -f arch/arm64/configs/"$kernel_defconfig" ]]; then
-		echo ""
+	if [[ -n "$kernel_arch" ]]; then
+		if [[ -n "$kernel_defconfig" ]]; then
+			if [[ -f arch/$kernel_arch/configs/"$kernel_defconfig" ]]; then
+				echo ""
+			else
+				echo "error: Device Defconfig not found!"
+				exit 22
+			fi
+		else
+			echo "error: Device Config not defined!"
+			exit 22
+		fi
 	else
-		echo "error: Defconfig not found!"
+		echo "error: Device architecture not defined!"
 		exit 22
 	fi
 
