@@ -101,11 +101,9 @@ kernel_build() {
 
 	make O=out -j"$parallel_threads" ARCH="$kernel_arch" "${MAKE[@]}" "$kernel_defconfig"
 
-	command="make O=out -j$parallel_threads ARCH=$kernel_arch ${MAKE[@]}"
-
 	start=$(date +%s)
 
-	$command
+	make O=out -j"$parallel_threads" ARCH="$kernel_arch" "${MAKE[@]}"
 
 	if [[ -n "$create_dtbo" ]]; then
 		echo "sworkflow: Creating dtbo"
