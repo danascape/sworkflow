@@ -12,24 +12,26 @@
 # Check if the kernel config already exists for a particular device.
 # This check is being performed to add support for official devices.
 check_kernel() {
-#	parse_build_arguments "$1"
+	#	parse_build_arguments "$1"
 
 	local device
 	device="$1"
 	echo "Checking if kernel config exists for $device"
 	if [[ -n $(find -L $SW_SRC_DIR/device -maxdepth 2 -name "sworkflow.$device.config") ]]; then
 		for dir in device; do
-			for f in $(cd "$SW_SRC_DIR" && test -d $dir && \
+			for f in $(cd "$SW_SRC_DIR" && test -d $dir &&
 				find -L $SW_SRC_DIR -maxdepth 4 -name "sworkflow.$device.config" | sort); do
-				        echo "sworkflow: Including $f"; . "$f" --source-only
+				echo "sworkflow: Including $f"
+				. "$f" --source-only
 			done
 		done
 		echo "sworkflow: Config for $device found"
 	elif [[ -n $(find -L $(pwd) -maxdepth 2 -name "sworkflow.$device.config") ]]; then
 		for dir in device; do
-			for f in $(cd $(pwd) && test -d $dir && \
+			for f in $(cd $(pwd) && test -d $dir &&
 				find -L $(pwd) -maxdepth 4 -name "sworkflow.$device.config" | sort); do
-				        echo "sworkflow: Including $f"; . "$f" --source-only
+				echo "sworkflow: Including $f"
+				. "$f" --source-only
 			done
 		done
 		echo $test
@@ -59,24 +61,24 @@ kernel_build() {
 	fi
 
 	if [[ -n "$build_silent" ]]; then
-		MAKE+=( -s )
+		MAKE+=(-s)
 	fi
 
 	if [[ -n "$cross_compile" ]]; then
 		cross_compile="CROSS_COMPILE=$cross_compile"
-		MAKE+=( $cross_compile )
+		MAKE+=($cross_compile)
 	fi
 
 	if [[ -n "$cross_compile_arm32" ]]; then
 		cross_compile_arm32="CROSS_COMPILE_ARM32=$cross_compile_arm32"
-		MAKE+=( $cross_compile_arm32 )
+		MAKE+=($cross_compile_arm32)
 	fi
 
 	if [[ -n "$use_clang" ]]; then
 		cc="CC=clang"
 		clang_triple="CLANG_TRIPLE=aarch64-linux-gnu-"
-		MAKE+=( $cc \
-			$clang_triple )
+		MAKE+=($cc
+			$clang_triple)
 	fi
 
 	if [[ -f arch/arm64/configs/$kernel_defconfig ]]; then
@@ -91,9 +93,9 @@ kernel_build() {
 	command="make O=out -j$parallel_threads ARCH=$kernel_arch "${MAKE[@]}""
 
 	start=$(date +%s)
-	
+
 	$command
-	
+
 	if [[ -n "$create_dtbo" ]]; then
 		echo "sworkflow: Creating dtbo"
 		dtbo_path="out/arch/$kernel_arch/boot/dtbo.img"
@@ -114,7 +116,6 @@ kernel_build() {
 		fi
 	fi
 
-
 	end=$(date +%s)
 
 	time=$((end - start))
@@ -124,15 +125,15 @@ kernel_build() {
 
 parse_build_arguments() {
 	if [[ "$?" != 0 ]]; then
-		return 22 # EINVAL	
+		return 22 # EINVAL
 	fi
 
 	while [[ "$#" -gt 0 ]]; do
 		case "$1" in
-			*)
-				echo "error: Invalid Argument"
-				exit 22 # EINVAL
-				;;
-		esac	
+		*)
+			echo "error: Invalid Argument"
+			exit 22 # EINVAL
+			;;
+		esac
 	done
 }
