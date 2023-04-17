@@ -7,4 +7,4 @@
 #
 
 ## Export the global variables to PATH
-bash $SRCDIR/src/build_vars.sh
+bash "$SRCDIR"/src/build_vars.sh
