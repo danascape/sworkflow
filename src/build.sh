@@ -82,9 +82,9 @@ kernel_build() {
 			"$clang_triple")
 	fi
 
-	if [[ -n "$kernel_arch" ]]; then
+	if [[ -n "$device_arch" ]]; then
 		if [[ -n "$kernel_defconfig" ]]; then
-			if [[ -f arch/$kernel_arch/configs/"$kernel_defconfig" ]]; then
+			if [[ -f arch/$device_arch/configs/"$kernel_defconfig" ]]; then
 				echo ""
 			else
 				echo "error: Device Defconfig not found!"
@@ -99,21 +99,21 @@ kernel_build() {
 		exit 22
 	fi
 
-	make O=out -j"$parallel_threads" ARCH="$kernel_arch" "${MAKE[@]}" "$kernel_defconfig"
+	make O=out -j"$parallel_threads" ARCH="$device_arch" "${MAKE[@]}" "$kernel_defconfig"
 
 	start=$(date +%s)
 
-	make O=out -j"$parallel_threads" ARCH="$kernel_arch" "${MAKE[@]}"
+	make O=out -j"$parallel_threads" ARCH="$device_arch" "${MAKE[@]}"
 
 	if [[ -n "$create_dtbo" ]]; then
 		echo "sworkflow: Creating dtbo"
-		dtbo_path="out/arch/$kernel_arch/boot/dtbo.img"
+		dtbo_path="out/arch/$device_arch/boot/dtbo.img"
 		if [[ -f $dtbo_path ]]; then
 			echo "warning: DTBO image already present!"
 		else
 			if [[ -n "$dtbo_page_size" ]]; then
 				if [[ -n $dtbo_arch_path ]]; then
-					python3 "$SW_SRC_DIR"/utils/src/mkdtboimg.py create "out/arch/$kernel_arch/boot/dtbo.img" --page_size="$dtbo_page_size" "$dtbo_arch_path"
+					python3 "$SW_SRC_DIR"/utils/src/mkdtboimg.py create "out/arch/$device_arch/boot/dtbo.img" --page_size="$dtbo_page_size" "$dtbo_arch_path"
 				else
 					echo "error: kernel DTBO directory not defined!"
 					exit 22
