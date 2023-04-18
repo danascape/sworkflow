@@ -47,12 +47,12 @@ generate_config() {
 		read -p "Enter Kernel Cross Compiler(32): " cross_compile_32
 	fi
 
-	read -p "Does your kernel use clang? (y/n)" answer
+	read -p "Does your kernel use clang? (y/n) " answer
 	if [[ $answer =~ ^[Yy] ]]; then
 		use_clang=1
 	fi
 
-	read -p "Do your device need DTBO? (y/n)" answer
+	read -p "Do your device need DTBO? (y/n) " answer
 	if [[ $answer =~ ^[Yy] ]]; then
 		create_dtbo=1
 		read -p "Enter DTBO Page Size: " dtbo_page_size
