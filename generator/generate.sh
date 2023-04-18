@@ -40,6 +40,7 @@ generate_config() {
 if [[ $answer =~ ^[Yy]$ ]]; then
 	echo "sworkflow: Starting the daemon..."
 	sleep 2
+	clear
 	generate_config
 else
 	echo "sworkflow: Exiting..."
