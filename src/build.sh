@@ -17,9 +17,9 @@ check_kernel() {
 	local device
 	local device_config_dir
 	device="$1"
-	device_config_dir="device"
+	device_config_dir="configs"
 	echo "Checking if kernel config exists for $device"
-	if [[ -n $(find -L "$SW_SRC_DIR"/device -maxdepth 2 -name "sworkflow.$device.config") ]]; then
+	if [[ -n $(find -L "$SW_SRC_DIR"/"$device_config_dir" -maxdepth 2 -name "sworkflow.$device.config") ]]; then
 		for dir in $device_config_dir; do
 			for f in $(cd "$SW_SRC_DIR" && test -d "$dir" &&
 				find -L "$SW_SRC_DIR" -maxdepth 4 -name "sworkflow.$device.config" | sort); do
