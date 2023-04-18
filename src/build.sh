@@ -52,10 +52,16 @@ displayDeviceInfo() {
         return 1
     fi
 
-    local DEVICE="$1"
-    local TARGET_DEVICE="$DEVICE"
-    local HOST_OS=$(uname)
-    local HOST_OS_EXTRA=$(uname -r)
+    local DEVICE
+    local TARGET_DEVICE
+    local HOST_OS
+    local HOST_OS_EXTRA
+
+    DEVICE="$1"
+    TARGET_DEVICE="$DEVICE"
+    HOST_OS="$(uname)"
+    HOST_OS_EXTRA="$(uname -r)"
+
     echo "============================================"
     echo "TARGET_DEVICE=$TARGET_DEVICE"
     echo "TARGET_ARCH=$device_arch"
@@ -135,7 +141,7 @@ kernel_build() {
 		exit 22
 	fi
 
-	displayDeviceInfo $device
+	displayDeviceInfo "$device"
 
 	make O=out -j"$parallel_threads" ARCH="$device_arch" "${MAKE[@]}" "$kernel_defconfig"
 
