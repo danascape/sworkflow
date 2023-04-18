@@ -78,24 +78,24 @@ device_arch="$device_arch"
 # Target Device Defconfig
 kernel_defconfig="$kernel_defconfig"" >> sworkflow.$device_name.config
 
-	if [ -n $kernel_arch ]; then
+	if [[ -n $kernel_arch ]]; then
 		echo "
 kernel_arch="$kernel_arch"" >> sworkflow.$device_name.config
 	fi
 
-	if [ -n $cross_compile ]; then
+	if [[ -n $cross_compile ]]; then
 		echo "
 # Kernel Cross Compiler
 cross_compile=$cross_compile
 cross_compile_arm32=$cross_compile_32" >> sworkflow.$device_name.config
 	fi
 
-	if [ -n $use_clang ]; then
+	if [[ -n $use_clang ]]; then
 		echo "
 use_clang=1" >> sworkflow.$device_name.config
 	fi
 
-	if [ -n $create_dtbo ]; then
+	if [[ -n $create_dtbo ]]; then
 		echo "
 ## Target Device DTBO config
 create_dtbo=1
@@ -105,6 +105,7 @@ dtbo_arch_path=$dtbo_arch_path" >> sworkflow.$device_name.config
 
 	echo "sworkflow: Config Created at $PWD/sworkflow.$device_name.config..."
 }
+
 if [[ $answer =~ ^[Yy]$ ]]; then
 	echo "sworkflow: Starting the daemon..."
 	sleep 2
