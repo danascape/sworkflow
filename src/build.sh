@@ -45,6 +45,29 @@ check_kernel() {
 
 }
 
+displayDeviceInfo() {
+
+    if [[ $# = 0 ]]; then
+        echo "usage: displayDeviceInfo [target]" >&2
+        return 1
+    fi
+
+    local DEVICE="$1"
+    local TARGET_DEVICE="$DEVICE"
+    local HOST_OS=$(uname)
+    local HOST_OS_EXTRA=$(uname -r)
+    echo "============================================"
+    echo "TARGET_DEVICE=$TARGET_DEVICE"
+    echo "TARGET_ARCH=$device_arch"
+    echo "KERNEL_DEFCONFIG=$kernel_defconfig"
+    echo "KERNEL_DIR=$PWD"
+    echo "HOST_OS=$HOST_OS"
+    echo "HOST_OS_EXTRA=$HOST_OS_EXTRA"
+    echo "HOST_PATH=$PATH"
+    echo "OUT_DIR=out" # HardCode this for now.
+    echo "============================================"
+}
+
 kernel_build() {
 	device="$3"
 	check_kernel "$device"
@@ -111,6 +134,8 @@ kernel_build() {
 		echo "error: Device architecture not defined!"
 		exit 22
 	fi
+
+	displayDeviceInfo $device
 
 	make O=out -j"$parallel_threads" ARCH="$device_arch" "${MAKE[@]}" "$kernel_defconfig"
 
