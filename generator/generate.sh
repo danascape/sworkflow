@@ -11,7 +11,18 @@ read -p "Do you want to generate sworkflow config? (y/n)" answer
 generate_config() {
 	read -p "Enter Device Name: " device_name
 
+	if [ -z "$device_name"]; then
+		echo "error: device_name is a required value!"
+		echo "error: Run the script again!"
+		exit 125
+	fi
+
 	read -p "Enter Device Architecture: " device_arch
+	if [ -z "$device_arch" ]; then
+		echo "error: device_arch is a required value!"
+		echo "error: Run the script again!"
+		exit 125
+	fi
 
 	read -p "Does your device have a separate kernel architecture?" answer
 	if [[ $answer =~ ^[Yy]$ ]]; then
@@ -19,6 +30,11 @@ generate_config() {
 	fi
 
 	read -p "Enter Device Defconfig: " kernel_defconfig
+	if [ -z "$kernel_defconfig" ]; then
+		echo "error: kernel_defconfig is a required variable!"
+		echo "error: Run the script again!"
+		exit 125
+	fi
 
 	read -p "Enter Kernel Cross Compiler(64): " cross_compile
 	read -p "Enter Kernel Cross Compiler(32): " cross_compile_32
