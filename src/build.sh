@@ -160,7 +160,7 @@ kernel_build()
 		else
 			if [[ -n "$dtbo_page_size" ]]; then
 				if [[ -n $dtbo_arch_path ]]; then
-					python3 "$SW_SRC_DIR"/utils/src/mkdtboimg.py create "out/arch/$device_arch/boot/dtbo.img" --page_size="$dtbo_page_size" "$dtbo_arch_path"
+					python3 "$SW_SRC_DIR"/utils/mkdtboimg.py create "out/arch/$device_arch/boot/dtbo.img" --page_size="$dtbo_page_size" "$dtbo_arch_path"
 				else
 					echo "error: kernel DTBO directory not defined!"
 					exit 22
