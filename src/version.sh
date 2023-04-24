@@ -8,6 +8,7 @@
 
 . "$SW_SRC_DIR"/src/build_vars.sh
 
-sworkflow_version() {
+sworkflow_version()
+{
 	echo "sworkflow $VERSION"
 }

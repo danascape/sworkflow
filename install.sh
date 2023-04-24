@@ -13,7 +13,8 @@ function safe_append()
   fi
 }
 
-update_path() {
+update_path()
+{
 	local shellrc 
 	shellrc=${1:-'.bashrc'}
 	

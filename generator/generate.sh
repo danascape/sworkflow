@@ -8,7 +8,8 @@
 
 read -p "Do you want to generate sworkflow config? (y/n) " answer
 
-generate_config() {
+generate_config()
+{
 	read -p "Enter Device Name: " device_name
 
 	if [[ -f sworkflow.$device_name.config ]]; then

@@ -14,7 +14,8 @@
 #
 # Returns:
 # True if given dir is a kernel tree root and false otherwise.
-is_kernel_root() {
+is_kernel_root()
+{
 	local -r DIR="$*"
 
 	# The following files are some of the files expected to be at a linux

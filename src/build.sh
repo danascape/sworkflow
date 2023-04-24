@@ -11,7 +11,8 @@
 
 # Check if the kernel config already exists for a particular device.
 # This check is being performed to add support for official devices.
-check_kernel() {
+check_kernel()
+{
 	#	parse_build_arguments "$1"
 
 	local device
@@ -45,7 +46,8 @@ check_kernel() {
 
 }
 
-displayDeviceInfo() {
+displayDeviceInfo()
+{
 
     if [[ $# = 0 ]]; then
         echo "usage: displayDeviceInfo [target]" >&2
@@ -74,7 +76,8 @@ displayDeviceInfo() {
     echo "============================================"
 }
 
-kernel_build() {
+kernel_build()
+{
 	device="$3"
 	check_kernel "$device"
 	echo "sworkflow: Starting Kernel Build!"
@@ -176,7 +179,8 @@ kernel_build() {
 	echo "-> sworkflow: Execution time: $elapsed_time"
 }
 
-parse_build_arguments() {
+parse_build_arguments()
+{
 	if [[ "$?" != 0 ]]; then
 		return 22 # EINVAL
 	fi
