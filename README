@@ -1,19 +1,6 @@
-<h1 align="center">sworkflow</h1>
+sworkflow is a simple and easy-to-use tool to compile linux kernel.
 
-<p align="center">
-   <a href="https://opensource.org/licenses/Apache-2.0"><img alt="License" src="https://img.shields.io/badge/License-Apache%202.0-blue.svg"/></a>
-</p>
-
-For documentation on how to run a build, see
-<a alt="Usage" href="Documentation/Usage.md">Usage.md</a><br>
-
-# How to compile
-To run a build for a supported device, run:
-
-```
-./sw build <device-name>
-```
-
+The documentation can eb found in docs/.
 
 # Contributing
 We appreciate that you want to contribute to the project's improvement.
