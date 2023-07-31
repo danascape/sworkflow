@@ -6,11 +6,30 @@
 # SPDX-License-Identifier: Apache-2.0 license
 #
 
-function safe_append()
+declare -r app_name='sw'
+
+##
+## Following are the install paths
+##
+# Paths used during the installation process]
+declare -r binpath="$HOME/.local/bin"
+declare -r srcpath="$HOME/.local/$app_name"
+
+# Source code references
+declare -r SRCDIR='src'
+
+safe_append()
 {
 	if [[ $(grep -c -x "$1" "$2") == 0 ]]; then
 		printf '%s\n' "$1" >> "$2"
 	fi
+}
+
+synchronize_files()
+{
+	echo "sworkflow: Installing files"
+	mkdir -p "$srcpath"
+	rsync -vr $SRCDIR $srcpath
 }
 
 update_path()
@@ -30,6 +49,7 @@ setup()
 		install | -i)
 			(
 				echo "Installing sworkflow"
+				synchronize_files
 				update_path '.bashrc'
 			)
 			;;
