@@ -16,4 +16,4 @@ git clone --depth=1 https://github.com/stormbreaker-project/arm-linux-androideab
 git clone --depth=1 -b aosp-11.0.5 https://github.com/sohamxda7/llvm-stable "$TC_DIR"/clang >/dev/null 2>&1
 export PATH="$PWD/tc/clang/bin:$PWD/tc/gcc/bin:$PWD/tc/gcc_32/bin:${PATH}"
 cd X00P || exit 1
-"$WORK_DIR"/sworkflow/sw b X00P
+"$WORK_DIR"/sw b X00P
