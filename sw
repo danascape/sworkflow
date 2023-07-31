@@ -13,6 +13,8 @@ SWORKFLOW=${SWORKFLOW:-'sw'}
 # SW source directory
 if [[ -f '/usr/bin/sw' ]]; then
 	SW_SRC_DIR="/usr/share/sw"
+elif [[ -f $HOME/sworkflow/sw ]]; then
+	SW_SRC_DIR="$HOME/sworkflow"
 else
 	# SW_SRC_DIR="${SW_SRC_DIR:-"$HOME/.local/sw"}/${SWORKFLOW}"
 	SW_SRC_DIR="$HOME/.local/sw"
