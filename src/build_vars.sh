@@ -11,4 +11,4 @@ export KBUILD_BUILD_HOST="Saalim"
 export KBUILD_BUILD_USER="StormCI"
 
 ## Tool references
-export VERSION="v0.1"
+export VERSION="v1.0"
