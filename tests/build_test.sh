@@ -15,7 +15,7 @@ cd "$WORK_DIR" || exit 1
 #source ~/.bashrc
 
 cd "$HOME" || exit 1
-git clone --depth 1 -b main https://github.com/stormbreaker-project/X00P
+git clone --depth 1 -b master https://github.com/stormbreaker-project/linux-asus-x00p-3.18 X00P
 git clone --depth=1 https://github.com/stormbreaker-project/aarch64-linux-android-4.9 "$TC_DIR"/gcc >/dev/null 2>&1
 git clone --depth=1 https://github.com/stormbreaker-project/arm-linux-androideabi-4.9 "$TC_DIR"/gcc_32 >/dev/null 2>&1
 git clone --depth=1 -b aosp-11.0.5 https://github.com/sohamxda7/llvm-stable "$TC_DIR"/clang >/dev/null 2>&1
