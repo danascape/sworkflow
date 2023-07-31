@@ -1,6 +1,7 @@
-sworkflow is a simple and easy-to-use tool to compile linux kernel.
+<h1 align="center">sworkflow</h1>
+It is a simple and easy-to-use tool to compile linux kernel.
 
-The documentation can eb found in docs/.
+The documentation can be found in Documentation/.
 
 # Contributing
 We appreciate that you want to contribute to the project's improvement.
