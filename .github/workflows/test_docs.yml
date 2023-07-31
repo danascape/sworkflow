@@ -1,0 +1,27 @@
+name: Test Doc build
+on:
+  [push, pull_request]
+
+jobs:
+  doc-build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout repository 
+      - uses: actions/checkout@v3
+
+      - name: Update the system
+        run: |
+          sudo apt update -y
+
+      - name: Install dependencies
+        run: |
+          apt install -y python3 python3-docutils python3-sphinx
+
+      - name: Check documentation
+        run: |
+          cd Documentation
+          make html
