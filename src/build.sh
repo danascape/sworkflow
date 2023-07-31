@@ -28,7 +28,6 @@ check_kernel()
 				. "$f" --source-only
 			done
 		done
-		echo "sworkflow: Config for $device found"
 	elif [[ -n $(find -L "$(pwd)" -maxdepth 2 -name "sworkflow.$device.config") ]]; then
 		for dir in $device_config_dir; do
 			for f in $(cd "$(pwd)" && test -d "$dir" &&
@@ -37,7 +36,6 @@ check_kernel()
 				. "$f" --source-only
 			done
 		done
-		echo "sworkflow: sworkflow.$device.config found outside the tree"
 	else
 		echo "error: No config file found"
 		echo "error: Refer to docs for more"
