@@ -17,8 +17,8 @@ For more information, check:
 
    content/installorremove
 
-Our code doc
-=============
+sw code doc
+===========
 
 Check out our code documentation.
 
@@ -27,6 +27,18 @@ Check out our code documentation.
    :caption: Code documentation:
 
    content/project_structure
+
+sw Tutorials
+============
+
+Check out our tutorials to see how you can use sw.
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Tutorials:
+
+   tutorials/setup
+
 
 Indices and Tables
 ==================
