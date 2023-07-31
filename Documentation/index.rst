@@ -15,6 +15,17 @@ For more information, check:
 
    content/installorremove
 
+Our code doc
+===========
+
+Check out our code documentation.
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Code documentation:
+
+   content/project_structure
+
 Indices and Tables
 ==================
 
