@@ -6,15 +6,9 @@
 sw - Kernel workflow tool
 =====================================
 
-.. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+Our mission is to reduce the environment and setup overhead of developing for Linux.
 
-
-
-Indices and tables
+Indices and Tables
 ==================
 
-* :ref:`genindex`
-* :ref:`modindex`
 * :ref:`search`
