@@ -6,6 +6,8 @@
 # SPDX-License-Identifier: Apache-2.0 license
 #
 
+. "$SW_SRC_DIR"/src/sw_color.sh --source-only
+
 ## This file contains pre-defined functions that will be used globally inside the tool.
 
 # Checks if a directory is a kernel tree root
@@ -26,4 +28,19 @@ is_kernel_root()
 		return 0
 	fi
 	return 1
+}
+
+log_error()
+{
+	echo "${COLOR_RED}${*}"
+}
+
+log_info()
+{
+	echo "${COLOR_BOLD_BLUE}${*}"
+}
+
+log_warnings()
+{
+	echo "${COLOR_CYAN}${*}"
 }
