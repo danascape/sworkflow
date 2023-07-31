@@ -6,4 +6,4 @@ src/init.sh
 src/sw_color.sh
 src/sw_functions.sh
 src/version.sh
-tests/build_test.sh
+tests/compile_test.sh
