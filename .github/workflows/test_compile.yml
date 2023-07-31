@@ -1,0 +1,34 @@
+name: Compile Kernel
+on:
+  [push, pull_request]
+
+jobs:
+  compile-kernel:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Update the system
+        run: |
+          sudo apt update -y
+
+      - name: Upgrade the system
+        run: |
+          sudo apt upgrade -y
+
+      - name: Install dependencies
+        run: |
+          sudo apt -y install bc build-essential zip curl libstdc++6 git wget python gcc clang libssl-dev rsync flex bison device-tree-compiler sudo
+
+      - name: Install additional dependencies
+        run: |
+          curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | sh
+
+      - name: Compile Kernel
+        run: |
+          bash tests/compile_test.sh
