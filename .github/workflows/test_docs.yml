@@ -25,3 +25,9 @@ jobs:
         run: |
           cd Documentation
           make html
+
+      - name: Deploy to temporary link
+        uses: peaceiris/actions-gh-pages@v3.9.3
+        with:
+          github_token: ${{ secrets.SECRET_TOKEN }}
+          publish_dir: ./Documentation/output/html
