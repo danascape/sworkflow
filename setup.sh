@@ -15,12 +15,30 @@ function safe_append()
 
 update_path()
 {
-	local shellrc
-	shellrc=${1:-'.bashrc'}
+	local shellrc=${1:-'.bashrc'}
 
 	# We are installing sworkflow in home directory
 	# Do not delete this directory
 	safe_append "PATH=${HOME}/sworkflow:\$PATH # sw" "${HOME}/${shellrc}"
 }
 
-update_path "$@"
+setup()
+{
+	argument="$1"
+
+	case "$argument" in
+		install | -i)
+			(
+				echo "Installing sworkflow"
+				update_path '.bashrc'
+			)
+			;;
+		*)
+			(
+				echo "error: Invalid Option"
+			)
+			;;
+	esac
+}
+
+setup "$@"
