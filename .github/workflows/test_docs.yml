@@ -19,7 +19,7 @@ jobs:
 
       - name: Install dependencies
         run: |
-          apt install -y python3 python3-docutils python3-sphinx
+          sudo apt install -y python3 python3-docutils python3-sphinx
 
       - name: Check documentation
         run: |
