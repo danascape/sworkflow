@@ -2,6 +2,22 @@
 Install or Remove `sw`
 ========================
 
+Package Dependencies
+--------------------
+We currently support *debian* for automatic dependencies
+installation. These are the current dependencies for *Debian*:
+
+   .. include:: ../dependencies/debian.dependencies
+
+If you want to build the documentation as it is displayed on our website you
+also need this pip package:
+
+   .. include:: ../dependencies/pip.dependencies
+
+.. note::
+   Our base support is Ubuntu LTS. i.e., the dependency packages installed in
+   your system should be at least as new as those present in Ubuntu LTS.
+
 Install
 -------
 
