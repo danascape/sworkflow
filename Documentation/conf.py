@@ -17,13 +17,12 @@ sys.path.insert(0, os.path.abspath('.'))
 
 # -- Project information -----------------------------------------------------
 
-project = 'sworkflow'
+project = 'sw'
 copyright = '2023, Saalim Quadri'
 author = 'Saalim Quadri'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1'
-
+release = ''
 
 # -- General configuration ---------------------------------------------------
 
