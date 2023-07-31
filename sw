@@ -22,50 +22,51 @@ else
 	exit 1
 fi
 
-sw() {
+sw()
+{
 	argument="$1"
 
 	case "$argument" in
 		build | b)
 			(
-			. $SW_SRC_DIR/src/build.sh --source-only
+				. $SW_SRC_DIR/src/build.sh --source-only
 
-			kernel_build '' "$@"
+				kernel_build '' "$@"
 
-		)
-		;;
-	help | h)
-		(
-		. $SW_SRC_DIR/src/help.sh --source-only
+			)
+			;;
+		help | h)
+			(
+				. $SW_SRC_DIR/src/help.sh --source-only
 
-		sworkflow_help
-	)
-	;;
-	man | m)
-		(
-		. $SW_SRC_DIR/src/help.sh --source-only
+				sworkflow_help
+			)
+			;;
+		man | m)
+			(
+				. $SW_SRC_DIR/src/help.sh --source-only
 
-		sworkflow_help
-	)
-	;;
-	version | v)
-		(
-		. $SW_SRC_DIR/src/version.sh --source-only
+				sworkflow_help
+			)
+			;;
+		version | v)
+			(
+				. $SW_SRC_DIR/src/version.sh --source-only
 
-		sworkflow_version
-	)
-	;;
-	*)
-		(
-		echo "error: Invalid Option"
-		. $SW_SRC_DIR/src/help.sh --source-only
+				sworkflow_version
+			)
+			;;
+		*)
+			(
+				echo "error: Invalid Option"
+				. $SW_SRC_DIR/src/help.sh --source-only
 
-		sworkflow_help
+				sworkflow_help
 
-	)
-	;;
+			)
+			;;
 
-esac
+	esac
 }
 
 sw "$@"
