@@ -1,4 +1,5 @@
 setup.sh
+sw
 src/build.sh
 src/build_vars.sh
 src/help.sh
