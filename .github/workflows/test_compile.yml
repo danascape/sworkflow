@@ -29,6 +29,11 @@ jobs:
         run: |
           curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | sh
 
+      - name: Install sworkflow
+        run: |
+          git clone https://github.com/danascape/sworkflow $HOME/sworkflow
+          ./install.sh
+
       - name: Compile Kernel
         run: |
           bash tests/compile_test.sh
