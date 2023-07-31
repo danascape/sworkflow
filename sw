@@ -6,20 +6,16 @@
 # SPDX-License-Identifier: Apache-2.0 license
 #
 
-## Global Paths
+SWORKFLOW=${SWORKFLOW:-'sw'}
+
+# Global Paths
 
 # SW source directory
-SW_SRC_DIR="$HOME/sworkflow"
-
-# Check for variable
-if [[ -d $SW_SRC_DIR ]]; then
-	echo "warning: Using hardcode directory is not recommended"
-	echo "warning: Refer to https://github.com/danascape/sworkflow/issues/12 for more"
-	echo ""
+if [[ -f '/usr/bin/sw' ]]; then
+	SW_SRC_DIR="/usr/share/sw"
 else
-	echo "error: SW_SRC_DIR variable not defined!"
-	echo "error: Run setup.sh script and try again."
-	exit 1
+	# SW_SRC_DIR="${SW_SRC_DIR:-"$HOME/.local/sw"}/${SWORKFLOW}"
+	SW_SRC_DIR="$HOME/.local/sw"
 fi
 
 sw()
