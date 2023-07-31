@@ -11,5 +11,8 @@ sworkflow_help()
 	echo "Usage: sw [options]"
 
 	echo -e "\nCommands\n" \
-		"\tbuild,b - Build Kernel\n"
+		"\tbuild,b - Build Kernel\n" \
+		"\tgenerate,g - Generate sworkflow config\n" \
+		"\thelp,h - Print this help message\n" \
+		"\tversion,v - Print version\n"
 }

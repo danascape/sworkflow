@@ -33,6 +33,11 @@ sw()
 
 			)
 			;;
+		generate | g)
+			(
+			. $SW_SRC_DIR/generator/generate.sh
+		)
+		;;
 		help | h)
 			(
 				. $SW_SRC_DIR/src/help.sh --source-only
