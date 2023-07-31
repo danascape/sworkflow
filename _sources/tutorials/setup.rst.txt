@@ -25,7 +25,7 @@ First, ``cd`` into the repository you cloned::
 
 Then install **sw**::
 
-  ./install.sh
+  ./setup.sh -i
 
 After installing **sw**, you should be able to call ``sw`` directly from the
 command line. For example, to display sw's help message::
