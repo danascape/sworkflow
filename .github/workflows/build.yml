@@ -14,4 +14,4 @@ jobs:
           curl https://raw.githubusercontent.com/akhilnarang/scripts/master/setup/android_build_env.sh | sh
           git clone --depth 1 https://github.com/danascape/sworkflow
           cd sworkflow
-          bash tests/build_test.sh
+          bash tests/compile_test.sh
