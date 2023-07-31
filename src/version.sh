@@ -10,5 +10,5 @@
 
 sworkflow_version()
 {
-	echo "sworkflow $VERSION"
+	echo -e "sworkflow $VERSION\n"
 }
