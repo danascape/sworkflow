@@ -1,4 +1,7 @@
 <h1 align="center">sworkflow</h1>
+<!-- ALL-CONTRIBUTORS-BADGE:START - Do not remove or modify this section -->
+[![All Contributors](https://img.shields.io/badge/all_contributors-1-orange.svg?style=flat-square)](#contributors-)
+<!-- ALL-CONTRIBUTORS-BADGE:END -->
 It is a simple and easy-to-use tool to compile linux kernel.
 
 The documentation can be found in Documentation/.
@@ -16,6 +19,20 @@ The best way to connect or get help is by creating [issues](https://github.com/d
 ## Contributors
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+<table>
+  <tbody>
+    <tr>
+      <td align="center" valign="top" width="14.28%"><a href="https://t.me/danascape"><img src="https://avatars.githubusercontent.com/u/40296389?v=4?s=100" width="100px;" alt="Saalim Quadri"/><br /><sub><b>Saalim Quadri</b></sub></a><br /><a href="https://github.com/danascape/sworkflow/commits?author=danascape" title="Code">💻</a></td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 
