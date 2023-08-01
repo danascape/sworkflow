@@ -13,6 +13,17 @@ and don't forget to read our
 # Contact
 The best way to connect or get help is by creating [issues](https://github.com/danascape/sworkflow/issues) or by making a [pull request](https://github.com/danascape/sworkflow/pulls).
 
+## Contributors
+
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- prettier-ignore-start -->
+<!-- markdownlint-disable -->
+
+<!-- markdownlint-restore -->
+<!-- prettier-ignore-end -->
+
+<!-- ALL-CONTRIBUTORS-LIST:END -->
+
 # License
 ```xml
 Copyright 2019 danascape (Saalim Quadri)

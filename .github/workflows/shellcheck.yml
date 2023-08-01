@@ -9,4 +9,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Run shellcheck.
-      run: while read -r script; do shellcheck --exclude=SC1090,SC1091 $script; done < files
+      run: while read -r script; do shellcheck --exclude=SC1090,SC1091 $script; done < tests/files
