@@ -18,6 +18,10 @@ check_kernel()
 	local device
 	local device_config_dir
 	device="$1"
+	if [[ $device == "" ]]; then
+		log_error "error: Device name is empty!"
+		exit 125
+	fi
 	device_config_dir="configs"
 	log_info "sworkflow: Checking if kernel config exists for $device"
 	if [[ -n $(find -L "$SW_SRC_DIR"/"$device_config_dir" -maxdepth 2 -name "sworkflow.$device.config") ]]; then
