@@ -33,9 +33,11 @@ sw()
 
 			)
 			;;
-		generate | g)
+		init | i)
 			(
-				. "$SW_SRC_DIR"/generator/generate.sh
+				. "$SW_SRC_DIR"/src/init.sh --source-only
+
+				generate_config
 			)
 			;;
 		help | h)

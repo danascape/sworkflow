@@ -3,7 +3,6 @@ sw
 src/build.sh
 src/build_vars.sh
 src/help.sh
-src/init.sh
 src/sw_color.sh
 src/sw_functions.sh
 src/version.sh
