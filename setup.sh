@@ -50,8 +50,8 @@ sworkflow_update_files()
 {
 	echo "sworkflow: Updating files"
 	echo "sworkflow: Fetching Updates"
-	git clone --depth 1 https://github.com/danascape/sworkflow /tmp/sworkflow
-	cd /tmp/sworkflow
+	git clone --depth 1 https://github.com/danascape/sworkflow /tmp/sworkflow || trigger_error
+	cd /tmp/sworkflow || trigger_error
 	./setup.sh i
 	rm -rf /tmp/sworkflow
 }
@@ -66,6 +66,7 @@ sworkflow_synchronize_files()
 
 	if [[ -z "$(which bash)" ]]; then
 		echo "error: No bash"
+		trigger_error
 	else
 		if [[ -f "$HOME/.bashrc" ]]; then
 			update_path '.bashrc'
@@ -73,6 +74,12 @@ sworkflow_synchronize_files()
 			echo "warning: Unable to find a .bashrc file"
 		fi
 	fi
+}
+
+trigger_error()
+{
+	echo "sworkflow: Failed to install"
+	exit 1
 }
 
 update_path()
