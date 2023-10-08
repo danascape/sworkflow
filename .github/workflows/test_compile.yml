@@ -32,7 +32,7 @@ jobs:
       - name: Install sworkflow
         run: |
           git clone https://github.com/danascape/sworkflow $HOME/sworkflow
-          ./setup.sh -i
+          ./setup.sh i
 
       - name: Compile Kernel
         run: |

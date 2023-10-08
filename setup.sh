@@ -26,6 +26,16 @@ safe_append()
 	fi
 }
 
+sworkflow_setup_help()
+{
+	echo "Usage: ./setup.sh [options]"
+
+	echo -e "\nCommands\n" \
+		"\tinstall,i - Install sworkflow\n" \
+		"\thelp,h - Print this help message\n"
+
+}
+
 synchronize_files()
 {
 	echo "sworkflow: Installing files"
@@ -61,15 +71,21 @@ setup()
 	argument="$1"
 
 	case "$argument" in
-		install | -i)
+		install | i)
 			(
 				echo "Installing sworkflow"
 				synchronize_files
 			)
 			;;
+		help | h)
+			(
+				sworkflow_setup_help
+			)
+			;;
 		*)
 			(
 				echo "error: Invalid Option"
+				sworkflow_setup_help
 			)
 			;;
 	esac
