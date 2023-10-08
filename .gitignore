@@ -1,4 +1,4 @@
 #
 # Normal rules (sorted alphabetically)
 #
-generator/sworkflow.*
+sworkflow.*
