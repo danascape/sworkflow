@@ -39,6 +39,7 @@ sworkflow_setup_help()
 synchronize_files()
 {
 	echo "sworkflow: Installing files"
+	mkdir -p "$binpath"
 	mkdir -p "$srcpath"
 	cp $app_name "$swbinpath"
 	rsync -vr $SRCDIR "$srcpath"
