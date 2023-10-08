@@ -50,9 +50,10 @@ sworkflow_update_files()
 {
 	echo "sworkflow: Updating files"
 	echo "sworkflow: Fetching Updates"
-	git reset --hard
-	git pull
-	sworkflow_synchronize_files
+	git clone --depth 1 https://github.com/danascape/sworkflow /tmp/sworkflow
+	cd /tmp/sworkflow
+	./setup.sh i
+	rm -rf /tmp/sworkflow
 }
 
 sworkflow_synchronize_files()
