@@ -34,7 +34,8 @@ sworkflow_setup_help()
 	echo -e "\nCommands\n" \
 		"\tinstall,i - Install sworkflow\n" \
 		"\thelp,h - Print this help message\n" \
-		"\tremove,r - Remove sworkflow\n"
+		"\tremove,r - Remove sworkflow\n" \
+		"\tupdate,u - Update sworkflow\n"
 
 }
 
