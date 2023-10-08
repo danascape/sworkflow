@@ -12,7 +12,7 @@ sworkflow_help()
 
 	echo -e "\nCommands\n" \
 		"\tbuild,b - Build Kernel\n" \
-		"\tinit,t - Generate sworkflow config\n" \
+		"\tinit,i - Generate sworkflow config\n" \
 		"\thelp,h - Print this help message\n" \
 		"\tversion,v - Print version\n"
 }
