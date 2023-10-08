@@ -32,8 +32,17 @@ sworkflow_setup_help()
 
 	echo -e "\nCommands\n" \
 		"\tinstall,i - Install sworkflow\n" \
-		"\thelp,h - Print this help message\n"
+		"\thelp,h - Print this help message\n" \
+		"\tremove,r - Remove sworkflow\n"
 
+}
+
+sworkflow_remove_files()
+{
+	echo "sworkflow: Uninstalling files"
+	rm "$swbinpath"
+	rm -rf "$srcpath"
+	echo "error: Not automatically updating PATH"
 }
 
 synchronize_files()
@@ -81,6 +90,12 @@ setup()
 		help | h)
 			(
 				sworkflow_setup_help
+			)
+			;;
+		remove | r)
+			(
+				echo "Removing sworkflow"
+				sworkflow_remove_files
 			)
 			;;
 		*)
