@@ -154,6 +154,11 @@ kernel_build()
 
 	make O=out -j"$parallel_threads" ARCH="$device_arch" "${MAKE[@]}"
 
+	if [[ -n "$do_modules" ]]; then
+		log_info "sworkflow: Installing modules"
+		make O=out -j"$parallel_threads" ARCH="$device_arch" "${MAKE[@]}" INSTALL_MOD_PATH=modules INSTALL_MOD_STRIP=1 modules_install
+	fi
+
 	if [[ -n "$create_dtbo" ]]; then
 		log_info "sworkflow: Creating dtbo"
 		dtbo_path="out/arch/$device_arch/boot/dtbo.img"
