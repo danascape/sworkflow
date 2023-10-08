@@ -17,6 +17,7 @@ declare -r srcpath="$HOME/.local/$app_name"
 declare -r swbinpath="$HOME/.local/bin/$app_name"
 
 # Source code references
+declare -r CONFIGDIR='configs'
 declare -r SRCDIR='src'
 
 safe_append()
@@ -51,6 +52,7 @@ synchronize_files()
 	mkdir -p "$binpath"
 	mkdir -p "$srcpath"
 	cp $app_name "$swbinpath"
+	rsync -vr $CONFIGDIR "$srcpath"
 	rsync -vr $SRCDIR "$srcpath"
 
 	if [[ -z "$(which bash)" ]]; then
