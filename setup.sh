@@ -46,9 +46,17 @@ sworkflow_remove_files()
 	echo "error: Not automatically updating PATH"
 }
 
-synchronize_files()
+sworkflow_update_files()
 {
-	echo "sworkflow: Installing files"
+	echo "sworkflow: Updating files"
+	echo "sworkflow: Fetching Updates"
+	git reset --hard
+	git pull
+	sworkflow_synchronize_files
+}
+
+sworkflow_synchronize_files()
+{
 	mkdir -p "$binpath"
 	mkdir -p "$srcpath"
 	cp $app_name "$swbinpath"
@@ -85,8 +93,8 @@ setup()
 	case "$argument" in
 		install | i)
 			(
-				echo "Installing sworkflow"
-				synchronize_files
+				echo "sworkflow: Installing files"
+				sworkflow_synchronize_files
 			)
 			;;
 		help | h)
@@ -96,8 +104,12 @@ setup()
 			;;
 		remove | r)
 			(
-				echo "Removing sworkflow"
 				sworkflow_remove_files
+			)
+			;;
+		update | u)
+			(
+				sworkflow_update_files
 			)
 			;;
 		*)
