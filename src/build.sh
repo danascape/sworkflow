@@ -150,6 +150,11 @@ kernel_build()
 
 	make O=out -j"$parallel_threads" ARCH="$device_arch" "${MAKE[@]}" "$kernel_defconfig"
 
+	if [[ -n "$build_clean" ]]; then
+		make O=out -j"$parallel_threads" ARCH="$device_arch" clean
+		make O=out -j"$parallel_threads" ARCH="$device_arch" mrproper
+	fi
+
 	start=$(date +%s)
 
 	make O=out -j"$parallel_threads" ARCH="$device_arch" "${MAKE[@]}"
