@@ -1,4 +1,4 @@
-name: Compile Kernel
+name: Compile Mainline Kernel
 on:
   [push, pull_request]
 
