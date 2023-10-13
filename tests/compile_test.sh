@@ -6,6 +6,10 @@
 # SPDX-License-Identifier: Apache-2.0 license
 #
 
+mkdir tc
+export TC_DIR="$PWD/tc"
+export WORK_DIR="$PWD"
+
 clone_kernel()
 {
 	git clone --depth 1 -b master https://github.com/stormbreaker-project/linux-asus-x00p-3.18 X00P
