@@ -54,6 +54,13 @@ sw()
 				sworkflow_help
 			)
 			;;
+		pack | p)
+			(
+				. "$SW_SRC_DIR"/src/sw_package.sh --source-only
+
+				kernel_package '' "$@"
+			)
+			;;
 		version | v)
 			(
 				. "$SW_SRC_DIR"/src/version.sh --source-only
