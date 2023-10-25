@@ -48,6 +48,27 @@ check_kernel()
 
 }
 
+do_kernel_modules()
+{
+	mkdir out/dist/modules
+	modules=()
+
+	while IFS= read -r -d $'\0' file; do
+		modules+=("$file")
+	done < <(find out/modules/lib/modules/ -name '*.ko' -print0)
+
+	for file in "${modules[@]}"; do
+		cp "$file" "$dist_path/modules/"
+	done
+
+	# cp $(find out/modules/lib/modules/* -name '*.ko') $dist_path/modules/
+	cp out/modules/lib/modules/*/modules.{alias,dep,softdep} "$dist_path"/modules
+	cp out/modules/lib/modules/*/modules.order "$dist_path"/modules/modules.load
+	sed -i 's/\(kernel\/[^: ]*\/\)\([^: ]*\.ko\)/\/vendor\/lib\/modules\/\2/g' "$dist_path"/modules/modules.dep
+	sed -i 's/.*\///g' "$dist_path"/modules/modules.load
+
+}
+
 displayDeviceInfo()
 {
 
@@ -198,12 +219,7 @@ kernel_build()
 				cp "$kernel_image_path" $dist_path
 				if [[ -n "$do_modules" ]]; then
 					log_info "sworkflow: Copying modules"
-					mkdir out/dist/modules
-					cp $(find out/modules/lib/modules/* -name '*.ko') $dist_path/modules/
-					cp out/modules/lib/modules/*/modules.{alias,dep,softdep} $dist_path/modules
-					cp out/modules/lib/modules/*/modules.order $dist_path/modules/modules.load
-					sed -i 's/\(kernel\/[^: ]*\/\)\([^: ]*\.ko\)/\/vendor\/lib\/modules\/\2/g' $dist_path/modules/modules.dep
-					sed -i 's/.*\///g' $dist_path/modules/modules.load
+					do_kernel_modules
 				fi
 			fi
 		else
