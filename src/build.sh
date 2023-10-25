@@ -184,6 +184,15 @@ kernel_build()
 		fi
 	fi
 
+	if [[ -n "$create_dist" ]]; then
+		log_info "sworkflow: Creating dist directory"
+		mkdir -p out/dist
+		dist_path="out/dist"
+		if [[ -f $dist_path ]]; then
+			log_info "sworkflow: Copying the contents into dist"
+		fi
+	fi
+
 	end=$(date +%s)
 
 	time=$((end - start))
