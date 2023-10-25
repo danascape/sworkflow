@@ -196,6 +196,15 @@ kernel_build()
 				log_info "sworkflow: Copying the contents into dist"
 				kernel_image_path="out/arch/$device_arch/boot/$kernel_image_name"
 				cp "$kernel_image_path" $dist_path
+				if [[ -n "$do_modules" ]]; then
+					log_info "sworkflow: Copying modules"
+					mkdir out/dist/modules
+					cp $(find out/modules/lib/modules/* -name '*.ko') $dist_path/modules/
+					cp out/modules/lib/modules/*/modules.{alias,dep,softdep} $dist_path/modules
+					cp out/modules/lib/modules/*/modules.order $dist_path/modules/modules.load
+					sed -i 's/\(kernel\/[^: ]*\/\)\([^: ]*\.ko\)/\/vendor\/lib\/modules\/\2/g' $dist_path/modules/modules.dep
+					sed -i 's/.*\///g' $dist_path/modules/modules.load
+				fi
 			fi
 		else
 			log_error "error: Define $kernel_image_name to create dist"
