@@ -30,6 +30,21 @@ is_kernel_root()
 	return 1
 }
 
+# Checks if out directory contains the kernel image
+#
+# Returns:
+# True if given kernel image is present and false otherwise
+is_kernel_image_present()
+{
+	local -r DEVICE_ARCH="$1"
+	local -r OBJ="$2"
+
+	if [[ -f "out/arch/${DEVICE_ARCH}/boot/${OBJ}" ]]; then
+		return 0
+	fi
+	return 1
+}
+
 log_error()
 {
 	echo "${COLOR_RED}${*}"

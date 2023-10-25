@@ -185,11 +185,20 @@ kernel_build()
 	fi
 
 	if [[ -n "$create_dist" ]]; then
-		log_info "sworkflow: Creating dist directory"
-		mkdir -p out/dist
-		dist_path="out/dist"
-		if [[ -f $dist_path ]]; then
-			log_info "sworkflow: Copying the contents into dist"
+		if [[ -n "$kernel_image_name" ]]; then
+			log_info "sworkflow: Checking kernel image!"
+			if ! is_kernel_image_present "$device_arch" "$kernel_image_name"; then
+				log_error "error: Build failed"
+			else
+				log_info "sworkflow: Creating dist directory"
+				mkdir -p out/dist
+				dist_path="out/dist"
+				log_info "sworkflow: Copying the contents into dist"
+				kernel_image_path="out/arch/$device_arch/boot/$kernel_image_name"
+				cp "$kernel_image_path" $dist_path
+			fi
+		else
+			log_error "error: Define $kernel_image_name to create dist"
 		fi
 	fi
 
