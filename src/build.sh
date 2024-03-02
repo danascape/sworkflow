@@ -56,9 +56,9 @@ do_anykernel()
 		log_info "sworkflow: AK3 already present"
 		log_info "warning: Skipping Clone"
 	else
-		git clone -b $branch $ANYKERNEL_LINK --depth=1 AnyKernel3
+		git clone -b "$branch" "$ANYKERNEL_LINK" --depth=1 AnyKernel3
 	fi
-	cd AnyKernel3/
+	cd AnyKernel3/ || log_error "error: Directory not Found"
 	make clean
 	cp -r ../out/dist/* ./
 	make
@@ -246,7 +246,7 @@ kernel_build()
 	if [[ -n "$do_anykernel" ]]; then
 		if [[ -n "$anykernel_branch" ]]; then
 			log_info "sworkflow: Cloning Anykernel3"
-			do_anykernel $anykernel_branch
+			do_anykernel "$anykernel_branch"
 		else
 			log_error "error: Define Anykernel Branch!"
 			log_error "error: Check Documentation for more"
