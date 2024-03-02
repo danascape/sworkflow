@@ -52,9 +52,15 @@ do_anykernel()
 {
 	branch="$1"
 	ANYKERNEL_LINK="https://github.com/stormbreaker-project/AnyKernel3"
-	git clone -b $branch $ANYKERNEL_LINK --depth=1 AnyKernel3
-	cp -r out/dist/* AnyKernel3/
+	if [[ -d "AnyKernel3" ]]; then
+		log_info "sworkflow: AK3 already present"
+		log_info "warning: Skipping Clone"
+	else
+		git clone -b $branch $ANYKERNEL_LINK --depth=1 AnyKernel3
+	fi
 	cd AnyKernel3/
+	make clean
+	cp -r ../out/dist/* ./
 	make
 }
 
