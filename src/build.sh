@@ -48,6 +48,13 @@ check_kernel()
 
 }
 
+do_anykernel()
+{
+	branch="$1"
+	ANYKERNEL_LINK="https://github.com/stormbreaker-project/AnyKernel3"
+	git clone -b $branch $ANYKERNEL_LINK
+}
+
 do_kernel_modules()
 {
 	mkdir out/dist/modules
@@ -226,6 +233,17 @@ kernel_build()
 			log_error "error: Define $kernel_image_name to create dist"
 		fi
 	fi
+
+	if [[ -n "$do_anykernel" ]]; then
+		if [[ -n "$anykernel_branch" ]]; then
+			log_info "sworkflow: Cloning Anykernel3"
+			do_anykernel $anykernel_branch
+		else
+			log_error "error: Define Anykernel Branch!"
+			log_error "error: Check Documentation for more"
+		fi
+	fi
+
 
 	end=$(date +%s)
 
