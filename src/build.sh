@@ -52,7 +52,7 @@ do_anykernel()
 {
 	branch="$1"
 	ANYKERNEL_LINK="https://github.com/stormbreaker-project/AnyKernel3"
-	git clone -b $branch $ANYKERNEL_LINK
+	git clone -b $branch $ANYKERNEL_LINK --depth=1
 }
 
 do_kernel_modules()
