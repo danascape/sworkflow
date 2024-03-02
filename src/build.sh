@@ -253,7 +253,6 @@ kernel_build()
 		fi
 	fi
 
-
 	end=$(date +%s)
 
 	time=$((end - start))
