@@ -66,7 +66,12 @@ do_anykernel()
 
 do_kernel_modules()
 {
+	if [[ -d "out/dist/modules" ]]; then
+		log_info "sworkflow: Removing old modules"
+		rm -rf out/dist/modules
+	fi
 	mkdir out/dist/modules
+
 	modules=()
 
 	while IFS= read -r -d $'\0' file; do
