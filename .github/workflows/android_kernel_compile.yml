@@ -36,4 +36,4 @@ jobs:
 
       - name: Compile Kernel
         run: |
-          bash tests/compile_test.sh
+          bash tests/build/arm64_compile_test.sh
