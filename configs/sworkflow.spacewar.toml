@@ -1,0 +1,9 @@
+schema = 1
+extends = "base/arm64-android"
+
+[device]
+name = "spacewar"
+vendor = "nothing"
+
+[kernel]
+defconfigs = ["vendor/spacewar_defconfig"]

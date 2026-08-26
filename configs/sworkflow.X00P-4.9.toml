@@ -1,0 +1,14 @@
+schema = 1
+extends = "base/arm64-android"
+
+[device]
+name = "X00P"
+vendor = "asus"
+
+[kernel]
+defconfigs = ["X00P_defconfig"]
+image = "Image.gz-dtb"
+
+[build]
+modules = true
+dist = true

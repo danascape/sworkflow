@@ -1,0 +1,14 @@
+schema = 1
+extends = "base/arm64-android"
+
+[device]
+name = "blueline"
+vendor = "google"
+
+[kernel]
+defconfigs = ["b1c1_defconfig"]
+image = "Image.lz4"
+
+[build]
+modules = true
+dist = true

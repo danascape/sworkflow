@@ -1,0 +1,11 @@
+schema = 1
+extends = "base/x86_64"
+
+[device]
+name = "mainline"
+
+[kernel]
+defconfigs = ["x86_64_defconfig"]
+
+[build]
+modules = true
