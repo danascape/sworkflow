@@ -13,9 +13,10 @@ defconfigs = [
 ]
 
 [external_modules]
-# Point ANDROID_MODULES_ROOT at the vendor module checkout.
-root = "${env.ANDROID_MODULES_ROOT}"
 paths = [
   "noth/fingerprint",
   "noth/touchscreen",
 ]
+
+[meta]
+tested_tree = "https://github.com/AKoskovich/android_kernel_nothing_sm7635@8ee84a2765a8820a1c4fd5c53f3d6d1f216a9941"

@@ -18,6 +18,10 @@ modules = true
 dist = true
 
 [external_modules]
+# The module repo sits beside the kernel repo in an Android tree
+# (kernel/nothing/sm7635 and kernel/nothing/sm7635-modules), and
+# the same holds for a pair of sibling clones.
+root = "${kernel.root}/../sm7635-modules"
 paths = [
   "qcom/opensource/mm-drivers/hw_fence",
   "qcom/opensource/mm-drivers/msm_ext_display",
