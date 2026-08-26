@@ -1,0 +1,15 @@
+#############################################
+# Name:        arm64-android base profile
+# Description: arm64 target built with the AOSP
+#              toolchain prefixes and clang
+#############################################
+
+schema = 1
+
+[kernel]
+arch = "arm64"
+
+[toolchain]
+cross_compile = "aarch64-linux-android-"
+cross_compile_arm32 = "arm-linux-androideabi-"
+clang = true

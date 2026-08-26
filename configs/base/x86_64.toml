@@ -1,0 +1,11 @@
+#############################################
+# Name:        x86_64 base profile
+# Description: Native x86_64 target, defconfigs
+#              live under arch/x86
+#############################################
+
+schema = 1
+
+[kernel]
+arch = "x86_64"
+defconfig_arch = "x86"
