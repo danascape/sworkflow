@@ -1,7 +1,7 @@
 #
 # Normal rules (sorted alphabetically)
 #
-sworkflow.*
+/sworkflow.*
 docs/output/
 debian/sworkflow/
 debian/*.substvars
