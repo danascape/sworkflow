@@ -7,6 +7,9 @@
 schema = 1
 extends = "base/arm64-gnu-llvm"
 
+[device]
+board_platform = "lito"
+
 [kernel]
 image = "Image"
 
