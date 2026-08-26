@@ -1,0 +1,12 @@
+schema = 1
+extends = "base/arm64-android"
+
+[device]
+name = "vince"
+vendor = "xiaomi"
+
+[kernel]
+defconfigs = ["vince_defconfig"]
+
+[build]
+clean = true
