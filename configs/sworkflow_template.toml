@@ -1,0 +1,151 @@
+#############################################
+# Name:        sworkflow device config template
+# Description: Reference for every supported key
+# Author:      Saalim Quadri (danascape)
+#############################################
+#
+# Copy this file to sworkflow.<device>.toml and fill in the
+# required keys, or point `extends` at a profile and override
+# only what differs for the device.
+#
+# Keys shown commented out are optional; the value shown is the
+# default that applies when the key is absent.
+
+# REQUIRED. Configuration schema version.
+#
+# Bumped only when a change is not backwards compatible. sw
+# refuses to load a config declaring a schema it does not know,
+# so an old sw never silently misreads a newer config.
+schema = 1
+
+# Parent config to inherit from.
+#
+# Resolved against the config search path with ".toml" appended,
+# so "soc/lito" loads soc/lito.toml from the first search
+# directory that has it. A parent may itself extend another;
+# cycles are an error.
+#
+# Merging is per key, never wholesale: a table in the child only
+# replaces the keys it names, and everything else the parent set
+# is kept.
+#extends = "soc/lito"
+
+
+[device]
+# REQUIRED. Canonical codename for the device.
+name = ""
+
+# Manufacturer. Namespaces the device once configs are shared,
+# so two vendors can both ship a "mars" without colliding.
+#vendor = ""
+
+# Other codenames this config should answer to. A device sold
+# under several names needs one config, not three.
+#aliases = []
+
+# Exported as TARGET_BOARD_PLATFORM to the kernel build.
+#board_platform = ""
+
+
+[kernel]
+# REQUIRED. Target architecture, passed as ARCH= to make.
+arch = "arm64"
+
+# Architecture whose arch/<arch>/configs directory holds the
+# defconfigs, when that differs from `arch`. Mainline x86_64
+# builds with ARCH=x86_64 but keeps its defconfigs under
+# arch/x86, so it sets this to "x86".
+#defconfig_arch = ""
+
+# REQUIRED. Defconfig, followed by any config fragments to merge
+# on top of it. Applied in the order given.
+defconfigs = []
+
+# Name of the built image under arch/<arch>/boot. Required when
+# [build] dist is true, since that is what gets collected.
+#image = ""
+
+
+[toolchain]
+# Cross compiler prefixes, passed as CROSS_COMPILE and
+# CROSS_COMPILE_ARM32.
+#cross_compile = ""
+#cross_compile_arm32 = ""
+
+# Build with clang rather than gcc.
+#
+# RESERVED: a string here is intended to pin a specific
+# toolchain ("aosp-clang@r510928") once sw can fetch them. Only
+# the boolean form is honoured today; a string is accepted and
+# treated as true, so configs written now keep working when
+# pinning lands.
+#clang = false
+
+# RESERVED. Pinned gcc toolchain ("arm-gnu@13.2"). Not resolved
+# yet; use cross_compile above to select a compiler on PATH.
+#gcc = ""
+
+# Extra variables placed in the build environment.
+#
+# This is the escape hatch for kernel trees that want a knob sw
+# has no key for, and it is deliberately data rather than shell:
+# values are set, never evaluated. Prefer a named key above when
+# one exists.
+#env = { LLVM = "1", LLVM_IAS = "1" }
+
+
+[build]
+# Install kernel modules under <out_dir>/modules.
+#modules = false
+
+# Collect the kernel image and modules into <out_dir>/dist.
+#dist = false
+
+# Run make clean and make mrproper before building.
+#clean = false
+
+# Pass -s to make.
+#silent = false
+
+# Build output directory. Relative paths resolve against the
+# kernel tree.
+#out_dir = "out"
+
+
+[dtbo]
+#enabled = false
+
+# Page size of the generated dtbo.img.
+#page_size = 0
+
+# Glob matching the .dtbo files to pack, relative to the build
+# output directory. Do not prefix it with the output directory
+# itself, that is added for you and stays correct when out_dir
+# changes.
+#path = ""
+
+
+[anykernel]
+#enabled = false
+
+# Branch of the AnyKernel3 repository to clone.
+#branch = ""
+
+
+[external_modules]
+# Directory that `paths` below resolve against.
+#root = ""
+
+# Out-of-tree module directories to build and install. Suffix an
+# entry with ":kbuild" when the module builds from the kernel
+# tree instead of its own.
+#paths = []
+
+
+[meta]
+# Who to ask when this config stops working.
+#maintainer = ""
+
+# Kernel tree this config was last known to build, pinned to a
+# revision so the claim stays meaningful.
+#tested_tree = ""
