@@ -137,9 +137,14 @@ defconfigs = []
 [external_modules]
 # Directory that `paths` below resolve against.
 #
-# Supports ${env.NAME} expansion so a shared config can point at
-# a checkout whose location differs per machine. Expansion is
-# textual substitution of named values only, never shell.
+# Supports expansion so a shared config stays portable across
+# checkouts: ${kernel.root} is the kernel tree being built, and
+# ${env.NAME} reads a named environment variable. Expansion is
+# textual substitution of known names only, never shell.
+#
+# Android trees keep the module repo beside the kernel repo, so
+# "${kernel.root}/../<soc>-modules" resolves correctly both in an
+# AOSP checkout and in a bare pair of sibling clones.
 #root = ""
 
 # Out-of-tree module directories to build and install, in build
