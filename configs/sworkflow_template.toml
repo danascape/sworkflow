@@ -27,7 +27,9 @@ schema = 1
 #
 # Merging is per key, never wholesale: a table in the child only
 # replaces the keys it names, and everything else the parent set
-# is kept.
+# is kept. Lists concatenate with the parent's entries first, so a
+# device adds its own defconfig fragments and modules on top of
+# whatever the profile already declared rather than restating it.
 #extends = "soc/lito"
 
 
@@ -134,11 +136,18 @@ defconfigs = []
 
 [external_modules]
 # Directory that `paths` below resolve against.
+#
+# Supports ${env.NAME} expansion so a shared config can point at
+# a checkout whose location differs per machine. Expansion is
+# textual substitution of named values only, never shell.
 #root = ""
 
-# Out-of-tree module directories to build and install. Suffix an
-# entry with ":kbuild" when the module builds from the kernel
-# tree instead of its own.
+# Out-of-tree module directories to build and install, in build
+# order. Suffix an entry with ":kbuild" when the module builds
+# from the kernel tree instead of its own.
+#
+# Appended to any list inherited via `extends`, so a device lists
+# only its own modules and gets the platform's for free.
 #paths = []
 
 
