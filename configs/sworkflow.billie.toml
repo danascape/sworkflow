@@ -1,0 +1,9 @@
+schema = 1
+extends = "soc/lito"
+
+[device]
+name = "billie"
+vendor = "xiaomi"
+
+[kernel]
+defconfigs = ["vendor/lito-perf_defconfig", "vendor/billie.config"]

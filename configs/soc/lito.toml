@@ -1,0 +1,15 @@
+#############################################
+# Name:        lito SoC profile
+# Description: Qualcomm lito platform, built with
+#              the GNU prefixes and full LLVM
+#############################################
+
+schema = 1
+extends = "base/arm64-gnu-llvm"
+
+[kernel]
+image = "Image"
+
+[build]
+modules = true
+dist = true
