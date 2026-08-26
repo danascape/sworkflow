@@ -1,0 +1,14 @@
+schema = 1
+extends = "base/arm64-android"
+
+[device]
+name = "ginkgo"
+vendor = "xiaomi"
+
+[kernel]
+defconfigs = ["ginkgo-perf_defconfig"]
+
+[dtbo]
+enabled = true
+page_size = 4096
+path = "arch/arm64/boot/dts/xiaomi/*.dtbo"
