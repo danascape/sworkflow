@@ -1,0 +1,21 @@
+schema = 1
+extends = "soc/sm7635"
+
+[device]
+name = "asteroids"
+vendor = "nothing"
+
+[kernel]
+defconfigs = [
+  "gki_defconfig",
+  "vendor/pineapple_perf.config",
+  "vendor/asteroids_perf.config",
+]
+
+[external_modules]
+# Point ANDROID_MODULES_ROOT at the vendor module checkout.
+root = "${env.ANDROID_MODULES_ROOT}"
+paths = [
+  "noth/fingerprint",
+  "noth/touchscreen",
+]

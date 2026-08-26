@@ -1,0 +1,45 @@
+#############################################
+# Name:        sm7635 SoC profile
+# Description: Qualcomm SM7635 (volcano) platform
+#              and its shared vendor modules
+#############################################
+
+schema = 1
+extends = "base/arm64-android"
+
+[device]
+board_platform = "volcano"
+
+[kernel]
+image = "Image"
+
+[build]
+modules = true
+dist = true
+
+[external_modules]
+paths = [
+  "qcom/opensource/mm-drivers/hw_fence",
+  "qcom/opensource/mm-drivers/msm_ext_display",
+  "qcom/opensource/mm-drivers/sync_fence",
+  "qcom/opensource/securemsm-kernel",
+  "qcom/opensource/audio-kernel",
+  "qcom/opensource/camera-kernel",
+  "qcom/opensource/datarmnet-ext/mem",
+  "qcom/opensource/dataipa/drivers/platform/msm",
+  "qcom/opensource/datarmnet/core",
+  "qcom/opensource/datarmnet-ext/aps",
+  "qcom/opensource/datarmnet-ext/offload",
+  "qcom/opensource/datarmnet-ext/shs",
+  "qcom/opensource/datarmnet-ext/perf",
+  "qcom/opensource/datarmnet-ext/perf_tether",
+  "qcom/opensource/datarmnet-ext/sch",
+  "qcom/opensource/datarmnet-ext/wlan",
+  "qcom/opensource/display-drivers/msm",
+  "qcom/opensource/dsp-kernel",
+  "qcom/opensource/video-driver",
+  "qcom/opensource/graphics-kernel",
+  "qcom/opensource/wlan/platform",
+  "qcom/opensource/wlan/qcacld-3.0/.qca6750",
+  "qcom/opensource/bt-kernel",
+]
