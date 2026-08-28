@@ -24,6 +24,10 @@ SRCDIR = src
 UTILSDIR = utils
 CONFIGDIR = configs
 
+# Config subdirectories holding the profiles devices inherit via
+# `extends`. They have to ship, or a converted config cannot resolve.
+PROFILEDIRS = base soc
+
 # Main entry point
 
 install:
@@ -63,7 +67,11 @@ _install-system-utils:
 
 _install-system-configs:
 	install -d $(DESTDIR)$(SYSCONFDIR)
-	install -m 644 $(CONFIGDIR)/*.config $(DESTDIR)$(SYSCONFDIR)/
+	install -m 644 $(CONFIGDIR)/*.config $(CONFIGDIR)/*.toml $(DESTDIR)$(SYSCONFDIR)/
+	for dir in $(PROFILEDIRS); do \
+		install -d $(DESTDIR)$(SYSCONFDIR)/$$dir; \
+		install -m 644 $(CONFIGDIR)/$$dir/*.toml $(DESTDIR)$(SYSCONFDIR)/$$dir/; \
+	done
 
 _install-system-man:
 	install -d $(DESTDIR)$(MANDIR)/man1
@@ -86,7 +94,11 @@ _install-user:
 	install -m 755 sw $(USER_BINDIR)/sw
 	install -m 644 $(SRCDIR)/*.sh $(USER_DATADIR)/$(SRCDIR)/
 	install -m 644 $(UTILSDIR)/*.py $(USER_DATADIR)/$(UTILSDIR)/
-	install -m 644 $(CONFIGDIR)/*.config $(USER_DATADIR)/$(CONFIGDIR)/
+	install -m 644 $(CONFIGDIR)/*.config $(CONFIGDIR)/*.toml $(USER_DATADIR)/$(CONFIGDIR)/
+	for dir in $(PROFILEDIRS); do \
+		install -d $(USER_DATADIR)/$(CONFIGDIR)/$$dir; \
+		install -m 644 $(CONFIGDIR)/$$dir/*.toml $(USER_DATADIR)/$(CONFIGDIR)/$$dir/; \
+	done
 	@echo ""
 	@echo "Installation complete!"
 	@echo "Make sure $(USER_BINDIR) is in your PATH."
