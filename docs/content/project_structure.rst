@@ -97,13 +97,31 @@ Installation Paths
 Configuration Files
 -------------------
 
-Device configurations are shell scripts named ``sworkflow.<device>.config``.
+Device configurations are TOML files named ``sworkflow.<device>.toml``.
+They are parsed as data and never executed, so a config file cannot run
+code.
 
 They are searched in order:
 
-1. ``/etc/sworkflow/`` (system)
-2. ``~/.local/sw/configs/`` (user)
-3. Current directory
-4. ``./configs/`` subdirectory
+1. Current directory
+2. ``/etc/sworkflow/`` (system) or ``~/.local/sw/configs/`` (user)
+3. ``./configs/`` subdirectory
 
-See ``configs/sworkflow_template.config`` for available variables.
+Within a directory a ``.toml`` config takes precedence over a legacy
+``.config`` shell file of the same name. Shell configs are still read for
+compatibility but are deprecated, and ``sw init`` only writes TOML.
+
+A config inherits from one profile with ``extends``, resolved against the
+same search path, so a device states only what makes it different::
+
+    schema = 1
+    extends = "soc/lito"
+
+    [device]
+    name = "gauguin"
+    vendor = "xiaomi"
+
+    [kernel]
+    defconfigs = ["vendor/lito-perf_defconfig", "vendor/xiaomi/gauguin.config"]
+
+See ``configs/sworkflow_template.toml`` for every key with its default.
