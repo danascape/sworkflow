@@ -7,44 +7,31 @@
 
 . "$SW_SRC_DIR"/src/sw_functions.sh --source-only
 
-# Find config file for a device
-# Search order: 1) SW_CONFIG_DIR 2) Current directory 3) ./configs/
-find_config()
-{
-	local device="$1"
-	local config_file="sworkflow.${device}.config"
-
-	if [[ -n "$SW_CONFIG_DIR" && -f "$SW_CONFIG_DIR/$config_file" ]]; then
-		echo "$SW_CONFIG_DIR/$config_file"
-	elif [[ -f "$(pwd)/$config_file" ]]; then
-		echo "$(pwd)/$config_file"
-	elif [[ -f "$(pwd)/configs/$config_file" ]]; then
-		echo "$(pwd)/configs/$config_file"
-	fi
-}
-
 # List all available configs (first found wins)
 list_available_configs()
 {
 	local all_configs=""
-	local search_dirs=()
+	local dir
 
-	[[ -n "$SW_CONFIG_DIR" && -d "$SW_CONFIG_DIR" ]] && search_dirs+=("$SW_CONFIG_DIR")
-	[[ -d "$(pwd)" ]] && search_dirs+=("$(pwd)")
-	[[ -d "$(pwd)/configs" ]] && search_dirs+=("$(pwd)/configs")
+	sw_config_search_dirs
 
-	for dir in "${search_dirs[@]}"; do
-		while IFS= read -r -d '' file; do
-			all_configs+="$file"$'\n'
-		done < <(find "$dir" -maxdepth 1 -name 'sworkflow.*.config' -print0 2> /dev/null | sort -z)
+	# Collected .toml before .config within each directory so the
+	# first-wins pass below shadows exactly the way build does.
+	for dir in "${SW_SEARCH_DIRS[@]}"; do
+		[[ -d "$dir" ]] || continue
+		for ext in toml config; do
+			while IFS= read -r -d '' file; do
+				all_configs+="$file"$'\n'
+			done < <(find "$dir" -maxdepth 1 -name "sworkflow.*.$ext" -print0 2> /dev/null | sort -z)
+		done
 	done
 
 	echo -n "$all_configs" | awk -F/ '{
 		file = $NF
 		gsub(/^sworkflow\./, "", file)
-		gsub(/\.config$/, "", file)
-		if (!seen[file]++) print $0
-	}'
+		gsub(/\.(config|toml)$/, "", file)
+		if (!seen[file]++) print file "\t" $0
+	}' | sort -f | cut -f2-
 }
 
 extract_device_name()
@@ -54,6 +41,7 @@ extract_device_name()
 	filename=$(basename "$config_path")
 	filename="${filename#sworkflow.}"
 	filename="${filename%.config}"
+	filename="${filename%.toml}"
 	echo "$filename"
 }
 
@@ -68,7 +56,10 @@ display_config()
 	log_info "============================================"
 
 	(
-		. "$config_path"
+		if ! sw_load_config "$config_path"; then
+			log_error "error: Could not load $config_path"
+			exit 1
+		fi
 
 		echo ""
 		echo "Architecture:"
@@ -123,10 +114,14 @@ sworkflow_doctor()
 	log_info "================"
 	echo ""
 
+	sw_config_search_dirs
+
 	log_info "Config search paths:"
-	echo "  1. $SW_CONFIG_DIR/"
-	echo "  2. $(pwd)/"
-	echo "  3. $(pwd)/configs/"
+	local index=1
+	for dir in "${SW_SEARCH_DIRS[@]}"; do
+		echo "  $index. $dir/"
+		index=$((index + 1))
+	done
 	echo ""
 
 	if is_kernel_root "$PWD"; then
@@ -138,7 +133,7 @@ sworkflow_doctor()
 
 	if [[ -n "$device" ]]; then
 		local config_path
-		config_path=$(find_config "$device")
+		config_path=$(sw_find_config "$device")
 
 		if [[ -n "$config_path" ]]; then
 			display_config "$config_path" "$device"
