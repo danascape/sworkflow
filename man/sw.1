@@ -209,10 +209,15 @@ Main executable (system installation).
 Source modules (system installation).
 .TP
 .I /usr/share/sworkflow/utils/
-Utility scripts including mkdtboimg.py.
+Utility scripts including mkdtboimg.py and swconfig.py, the config
+loader.
 .TP
 .I /etc/sworkflow/
 System-wide device configurations.
+.TP
+.I /etc/sworkflow/base/, /etc/sworkflow/soc/
+Profiles that device configs inherit through
+.BR extends .
 .TP
 .I ~/.local/bin/sw
 Main executable (user installation).
@@ -220,8 +225,11 @@ Main executable (user installation).
 .I ~/.local/sw/
 User installation directory.
 .TP
-.I sworkflow.<device>.config
+.I sworkflow.<device>.toml
 Device-specific configuration file.
+.TP
+.I sworkflow_template.toml
+Reference listing every key with its default.
 .SH ENVIRONMENT
 .TP
 .B SW_SRC_DIR
