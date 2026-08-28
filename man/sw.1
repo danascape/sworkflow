@@ -233,10 +233,19 @@ Reference listing every key with its default.
 .SH ENVIRONMENT
 .TP
 .B SW_SRC_DIR
-Override the source directory path.
+Directory holding
+.I src/
+and
+.IR utils/ .
 .TP
 .B SW_CONFIG_DIR
-Override the configuration directory path.
+Directory searched for device configs and profiles.
+.PP
+Both are worked out by
+.B sw
+from the installation it detects and exported for the modules it runs.
+They are not read from the calling environment, so setting them
+beforehand has no effect.
 .SH EXIT STATUS
 .TP
 .B 0
