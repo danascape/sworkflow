@@ -19,7 +19,10 @@ Directory Layout
     │   ├── sw_color.sh       # Terminal colors
     │   └── sw_package.sh     # Packaging (WIP)
     ├── configs/              # Device configurations
+    │   ├── base/             # Architecture and toolchain profiles
+    │   └── soc/              # SoC profiles
     ├── utils/                # Python utilities
+    │   ├── swconfig.py       # TOML config loader
     │   └── mkdtboimg.py      # DTBO image creator
     ├── man/                  # Man pages
     │   └── sw.1              # Main man page
