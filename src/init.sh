@@ -133,6 +133,10 @@ generate_config()
 	if [[ $answer =~ ^[Yy] ]]; then
 		create_dtbo=1
 		read -rp "Enter DTBO Page Size: " dtbo_page_size
+		if [[ ! "$dtbo_page_size" =~ ^[0-9]+$ ]]; then
+			log_error "error: DTBO page size must be a number"
+			exit 125
+		fi
 		read -rp "Enter DTBO path relative to the output directory: " dtbo_path
 	fi
 
@@ -184,5 +188,30 @@ generate_config()
 		fi
 	} > "$config_file"
 
+	# Hand back nothing the loader would refuse: run the generated file
+	# through the same strict check `sw build` applies, so a bad answer
+	# surfaces here instead of at the start of a build.
+	if ! validate_config "$config_file"; then
+		log_error "error: Generated config did not pass validation"
+		log_error "error: Fix or remove ${PWD}/${config_file} and try again"
+		exit 1
+	fi
+
 	log_info "sworkflow: Config Created at ${PWD}/${config_file}"
+}
+
+# Checks a config against the schema, resolving `extends` the same way
+# the build does.
+validate_config()
+{
+	local -r config_file="$1"
+	local -a search_args=()
+	local dir
+
+	for dir in "${SW_SEARCH_DIRS[@]}"; do
+		search_args+=(--search "$dir")
+	done
+
+	python3 "$SW_SRC_DIR"/utils/swconfig.py "$config_file" \
+		"${search_args[@]}" --kernel-root "$PWD" --check
 }
