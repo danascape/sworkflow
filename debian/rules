@@ -11,5 +11,13 @@ override_dh_auto_build:
 override_dh_auto_install:
 	$(MAKE) _install-system DESTDIR=$(CURDIR)/debian/sworkflow
 
+# Overriding dh_auto_test replaces it outright, so the skip it would
+# normally do for us has to be spelled out. Both spellings are checked:
+# the build profile is what drops shellcheck from Build-Depends, while
+# DEB_BUILD_OPTIONS is the traditional way to ask for no tests.
 override_dh_auto_test:
+ifeq (,$(filter nocheck,$(DEB_BUILD_OPTIONS) $(DEB_BUILD_PROFILES)))
 	$(MAKE) tests
+else
+	@echo "Skipping tests, nocheck was requested"
+endif
