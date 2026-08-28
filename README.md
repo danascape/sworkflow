@@ -115,29 +115,63 @@ man sw
 
 ## Configuration
 
-Device configurations are stored as shell scripts named `sworkflow.<device>.config`.
+Device configurations are TOML files named `sworkflow.<device>.toml`. They are
+parsed as data and never executed, so a config file cannot run code.
 
 **Search order:**
-1. `/etc/sworkflow/` (system installation)
-2. `~/.local/sw/configs/` (user installation)
-3. Current directory
-4. `./configs/` subdirectory
+1. Current directory
+2. `/etc/sworkflow/` (system installation) or `~/.local/sw/configs/` (user installation)
+3. `./configs/` subdirectory
 
-### Configuration Variables
+Within a directory a `.toml` config takes precedence over a legacy
+`.config` shell file of the same name. Shell configs are still read for
+compatibility but are deprecated, and `sw init` only writes TOML.
 
-| Variable | Description |
-|----------|-------------|
-| `device_arch` | Target architecture (arm64, x86_64) |
-| `kernel_defconfig` | Kernel defconfig file |
-| `cross_compile` | Cross-compiler prefix |
-| `cross_compile_arm32` | 32-bit ARM cross-compiler |
-| `use_clang` | Use Clang/LLVM (set to 1) |
-| `do_modules` | Install kernel modules |
-| `create_dtbo` | Create DTBO image |
-| `do_anykernel` | Package with AnyKernel3 |
-| `out_dir` | Output directory (default: `out`) |
+### Inheritance
 
-See `configs/sworkflow_template.config` for all options.
+A config inherits from one profile with `extends`, so a device only states
+what makes it different. Profiles live in `base/` and `soc/` of a config
+directory.
+
+```toml
+schema = 1
+extends = "soc/lito"
+
+[device]
+name = "gauguin"
+vendor = "xiaomi"
+
+[kernel]
+defconfigs = ["vendor/lito-perf_defconfig", "vendor/xiaomi/gauguin.config"]
+```
+
+Tables merge key by key and lists concatenate with the parent's entries
+first, so a child adds to a profile's defconfigs or modules rather than
+restating them.
+
+### Sections
+
+| Section | Keys |
+|---------|------|
+| *(top level)* | `schema` (required), `extends` |
+| `[device]` | `name`, `vendor`, `aliases`, `board_platform` |
+| `[kernel]` | `arch`, `defconfig_arch`, `defconfigs`, `image` |
+| `[toolchain]` | `cross_compile`, `cross_compile_arm32`, `clang`, `env` |
+| `[build]` | `modules`, `dist`, `clean`, `silent`, `out_dir` |
+| `[dtbo]` | `enabled`, `page_size`, `path` |
+| `[anykernel]` | `enabled`, `branch` |
+| `[external_modules]` | `root`, `paths` |
+| `[meta]` | `maintainer`, `tested_tree` |
+
+`kernel.arch` and `kernel.defconfigs` are required. An unknown section, an
+unknown key, or a value of the wrong type is an error rather than something
+quietly ignored.
+
+String values may contain `${kernel.root}` (the kernel tree being built) and
+`${env.NAME}`. Expansion substitutes known names only and never invokes a
+shell.
+
+See `configs/sworkflow_template.toml` for every key with its default.
 
 ## Building Debian Package
 
