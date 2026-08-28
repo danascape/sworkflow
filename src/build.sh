@@ -10,12 +10,17 @@
 
 # Check if the kernel config already exists for a particular device.
 # Search order: 1) Current directory 2) SW_CONFIG_DIR 3) ./configs/
+#
+# Within a directory the declarative .toml config wins over the legacy
+# bash .config, so converting a device is enough to switch it over while
+# a config the user has only in the old format keeps working.
 check_kernel()
 {
 	local device="$1"
-	local config_file="sworkflow.${device}.config"
 	local found_config=""
+	local dir
 	SWORKFLOW_CONFIG=""
+	SW_SEARCH_DIRS=()
 
 	if [[ -z "$device" ]]; then
 		log_error "error: Device name is empty!"
@@ -24,29 +29,63 @@ check_kernel()
 
 	log_info "sworkflow: Checking if kernel config exists for $device"
 
-	if [[ -f "$(pwd)/$config_file" ]]; then
-		found_config="$(pwd)/$config_file"
-	# Search in SW_CONFIG_DIR (system or user config directory)
-	elif [[ -n "$SW_CONFIG_DIR" && -f "$SW_CONFIG_DIR/$config_file" ]]; then
-		found_config="$SW_CONFIG_DIR/$config_file"
-	# Search in ./configs/ subdirectory
-	elif [[ -f "$(pwd)/configs/$config_file" ]]; then
-		found_config="$(pwd)/configs/$config_file"
-	fi
+	SW_SEARCH_DIRS+=("$(pwd)")
+	[[ -n "$SW_CONFIG_DIR" ]] && SW_SEARCH_DIRS+=("$SW_CONFIG_DIR")
+	SW_SEARCH_DIRS+=("$(pwd)/configs")
 
-	if [[ -n "$found_config" ]]; then
-		SWORKFLOW_CONFIG="$found_config"
-		log_info "sworkflow: Including $found_config"
-		# shellcheck source=/dev/null
-		. "$found_config"
-	else
+	for dir in "${SW_SEARCH_DIRS[@]}"; do
+		if [[ -f "$dir/sworkflow.${device}.toml" ]]; then
+			found_config="$dir/sworkflow.${device}.toml"
+			break
+		elif [[ -f "$dir/sworkflow.${device}.config" ]]; then
+			found_config="$dir/sworkflow.${device}.config"
+			break
+		fi
+	done
+
+	if [[ -z "$found_config" ]]; then
 		log_error "error: No config file found for device: $device"
 		log_error "error: Searched in:"
-		log_error "       - $(pwd)/"
-		log_error "       - $SW_CONFIG_DIR/"
-		log_error "       - $(pwd)/configs/"
+		for dir in "${SW_SEARCH_DIRS[@]}"; do
+			log_error "       - $dir/"
+		done
 		exit 125
 	fi
+
+	SWORKFLOW_CONFIG="$found_config"
+	log_info "sworkflow: Including $found_config"
+
+	if [[ "$found_config" == *.toml ]]; then
+		load_toml_config "$found_config"
+	else
+		# shellcheck source=/dev/null
+		. "$found_config"
+	fi
+}
+
+# Resolve a declarative config into shell variables.
+#
+# The file is parsed as data and never sourced, so a config cannot run
+# code. swconfig.py prints the assignments and eval only ever sees its
+# own quoted output.
+load_toml_config()
+{
+	local config_file="$1"
+	local resolved
+	local -a search_args=()
+	local dir
+
+	for dir in "${SW_SEARCH_DIRS[@]}"; do
+		search_args+=(--search "$dir")
+	done
+
+	if ! resolved="$(python3 "$SW_SRC_DIR"/utils/swconfig.py "$config_file" \
+		"${search_args[@]}" --kernel-root "$PWD")"; then
+		log_error "error: Could not load $config_file"
+		exit 125
+	fi
+
+	eval "$resolved"
 }
 
 do_anykernel()
