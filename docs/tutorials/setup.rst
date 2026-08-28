@@ -71,14 +71,19 @@ To create a new device configuration interactively::
 
 This will prompt you for:
 
-- Device name
-- Target architecture
-- Kernel defconfig
-- Cross-compiler paths
-- Clang usage
+- Device name and vendor
+- A profile to inherit from, if any
+- Kernel defconfig and image name
+- Module and dist options
 - DTBO settings
 
-The configuration is saved as ``sworkflow.<device>.config``.
+Inheriting a profile skips the architecture and toolchain questions,
+because the profile already answers them, leaving a config that states
+only what makes the device different.
+
+The configuration is saved as ``sworkflow.<device>.toml`` in the current
+directory and checked against the schema before it is reported as
+created.
 
 Available Commands
 ------------------
