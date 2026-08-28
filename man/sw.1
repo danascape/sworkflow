@@ -43,76 +43,163 @@ Display help message with available commands.
 .BR version ", " v
 Display version information.
 .SH CONFIGURATION
-Device configurations are shell scripts that define build variables.
+Device configurations are TOML files. They are parsed as data and never
+executed, so a config file cannot run code.
+.PP
 They are searched in the following order:
 .TP
 1.
-.I /etc/sworkflow/
-(system-wide installation)
+.I ./
+(current directory)
 .TP
 2.
+.I /etc/sworkflow/
+(system installation) or
 .I ~/.local/sw/configs/
 (user installation)
 .TP
 3.
-.I ./
-(current directory)
-.TP
-4.
 .I ./configs/
 (configs subdirectory)
 .PP
 Configuration files are named
-.BR sworkflow. \fIdevice\fR .config
-.SS Configuration Variables
+.BR sworkflow. \fIdevice\fR .toml
+.PP
+Within a directory a
+.I .toml
+config takes precedence over a legacy
+.I .config
+shell file of the same name. Shell configs are still read for
+compatibility but are deprecated, and
+.B sw init
+only writes TOML.
+.SS Inheritance
+A config may name one parent with the top level
+.B extends
+key, resolved against the same search path with
+.I .toml
+appended. Profiles ship under
+.I base/
+and
+.I soc/
+of a config directory, so an
+.B extends
+of soc/lito reads
+.IR soc/lito.toml .
+.PP
+A parent may itself extend another. Tables merge key by key, so a child
+replaces only what it names, and lists concatenate with the parent's
+entries first. Cycles are an error.
+.SS Expansion
+String values may contain
+.BR ${kernel.root} ,
+the kernel tree being built, and
+.BR ${env.NAME} ,
+a named environment variable. Expansion substitutes known names only and
+never invokes a shell.
+.SS Schema
 .TP
-.B device_arch
-Target device architecture (e.g., arm64, x86_64). Required.
+.B schema
+Schema version. Required, currently 1. A config declaring a version sw
+does not know is refused rather than partly understood.
 .TP
-.B kernel_arch
-Kernel architecture if different from device_arch (e.g., x86 for x86_64).
+.B extends
+Profile to inherit from. Optional.
 .TP
-.B kernel_defconfig
-Kernel defconfig file name. Required.
+.B [device]
+.IR name ,
+.IR vendor ,
+.IR aliases ,
+.IR board_platform .
+The last is exported as TARGET_BOARD_PLATFORM.
 .TP
-.B cross_compile
-Path prefix for 64-bit cross-compiler (e.g., aarch64-linux-gnu-).
+.B [kernel]
+.IR arch ,
+.IR defconfig_arch ,
+.IR defconfigs ,
+.IR image .
+.I arch
+and
+.I defconfigs
+are required.
+.I defconfig_arch
+names the architecture whose configs directory holds the defconfigs when
+it differs from
+.IR arch ,
+such as x86 for an x86_64 build.
+.I image
+is the built image under arch/<arch>/boot.
 .TP
-.B cross_compile_arm32
-Path prefix for 32-bit ARM cross-compiler.
+.B [toolchain]
+.IR cross_compile ,
+.IR cross_compile_arm32 ,
+.IR clang ,
+.IR env .
+.I clang
+is a boolean.
+.I env
+is a table of variables placed in the build environment.
 .TP
-.B use_clang
-Set to 1 to use Clang/LLVM for compilation.
+.B [build]
+.IR modules ,
+.IR dist ,
+.IR clean ,
+.IR silent ,
+.IR out_dir .
+All booleans except
+.IR out_dir ,
+which defaults to out.
 .TP
-.B do_modules
-Set to 1 to install kernel modules.
+.B [dtbo]
+.IR enabled ,
+.IR page_size ,
+.IR path .
+.I path
+is a glob relative to the build output directory.
 .TP
-.B build_silent
-Set to 1 for silent build output.
+.B [anykernel]
+.I enabled
+and
+.IR branch ,
+for AnyKernel3 packaging.
 .TP
-.B build_clean
-Set to 1 to run make clean before building.
+.B [external_modules]
+.I root
+and
+.IR paths .
+Out-of-tree module directories, built in the order given, resolved
+against
+.IR root .
+Suffix an entry with :kbuild when it builds from the kernel tree rather
+than its own.
 .TP
-.B create_dist
-Set to 1 to create a distribution directory with build artifacts.
-.TP
-.B kernel_image_name
-Name of the kernel image (e.g., Image.gz-dtb).
-.TP
-.B create_dtbo
-Set to 1 to create device tree overlay image.
-.TP
-.B dtbo_page_size
-Page size for DTBO image.
-.TP
-.B dtbo_arch_path
-Path to device tree files relative to out directory.
-.TP
-.B do_anykernel
-Set to 1 to package kernel with AnyKernel3.
-.TP
-.B anykernel_branch
-AnyKernel3 repository branch to use.
+.B [meta]
+.I maintainer
+and
+.IR tested_tree .
+Provenance only, unused by the build.
+.PP
+An unknown section, an unknown key, or a value of the wrong type is an
+error rather than something quietly ignored.
+.SS Example
+.PP
+.RS
+.nf
+schema = 1
+extends = "soc/lito"
+
+[device]
+name = "gauguin"
+vendor = "xiaomi"
+
+[kernel]
+defconfigs = ["vendor/lito-perf_defconfig", "vendor/xiaomi/gauguin.config"]
+.fi
+.RE
+.PP
+See
+.I sworkflow_template.toml
+in a config directory for every key with its default.
 .SH FILES
 .TP
 .I /usr/bin/sw
