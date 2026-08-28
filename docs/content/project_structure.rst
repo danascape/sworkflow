@@ -81,6 +81,8 @@ Installation Paths
     /usr/share/sworkflow/src/      # Source modules
     /usr/share/sworkflow/utils/    # Python utilities
     /etc/sworkflow/                # Device configs
+    /etc/sworkflow/base/           # Architecture and toolchain profiles
+    /etc/sworkflow/soc/            # SoC profiles
     /usr/share/man/man1/sw.1       # Man page
 
 **User Installation** (``make install``)::
@@ -89,6 +91,8 @@ Installation Paths
     ~/.local/sw/src/               # Source modules
     ~/.local/sw/utils/             # Python utilities
     ~/.local/sw/configs/           # Device configs
+    ~/.local/sw/configs/base/      # Architecture and toolchain profiles
+    ~/.local/sw/configs/soc/       # SoC profiles
 
 Configuration Files
 -------------------
