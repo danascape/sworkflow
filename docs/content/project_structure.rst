@@ -56,9 +56,18 @@ Source Modules
 **src/sw_functions.sh**
     Shared utility functions:
 
+    - ``sw_config_search_dirs()`` - Fill the config search path
+    - ``sw_find_config()`` - Locate a device's config
+    - ``sw_load_config()`` - Load a config into the shell
     - ``is_kernel_root()`` - Check if directory is a kernel tree
     - ``is_kernel_image_present()`` - Check for compiled kernel
     - ``log_info()``, ``log_error()`` - Logging functions
+
+**utils/swconfig.py**
+    Resolves a TOML device config: follows ``extends``, checks it against
+    the schema, expands ``${kernel.root}`` and ``${env.NAME}``, and prints
+    the result as shell assignments. Config files are parsed as data and
+    never sourced, so they cannot run code.
 
 **src/sw_color.sh**
     Terminal color definitions for output formatting.
