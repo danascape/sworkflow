@@ -61,7 +61,7 @@ sudo make uninstall   # Remove system installation
 
 **Required:**
 - bash (>= 4.0)
-- python3
+- python3 (>= 3.11, or `python3-tomli` on older releases — needed to read configs)
 - git
 - make
 
