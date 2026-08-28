@@ -2,7 +2,8 @@ Source: sworkflow
 Section: devel
 Priority: optional
 Maintainer: Saalim Quadri <danascape@gmail.com>
-Build-Depends: debhelper-compat (= 13)
+Build-Depends: debhelper-compat (= 13),
+               shellcheck
 Standards-Version: 4.6.2
 Homepage: https://github.com/sworkflow-project/sworkflow
 Vcs-Git: https://github.com/sworkflow-project/sworkflow.git
