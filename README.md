@@ -199,7 +199,9 @@ sworkflow/
 ├── sw                 # Main executable
 ├── src/               # Source modules
 ├── configs/           # Device configurations
-├── utils/             # Python utilities (mkdtboimg.py)
+│   ├── base/          # Architecture and toolchain profiles
+│   └── soc/           # SoC profiles
+├── utils/             # Python utilities (swconfig.py, mkdtboimg.py)
 ├── man/               # Man pages
 ├── docs/              # Sphinx documentation
 ├── debian/            # Debian packaging
