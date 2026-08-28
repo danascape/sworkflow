@@ -30,9 +30,13 @@ including architecture, defconfig, compiler settings, and build options.
 Also indicates whether the current directory is a kernel source tree.
 .TP
 .BR init ", " i
-Interactively generate a new device configuration file. Prompts for
-device name, architecture, defconfig, cross-compiler paths, and other
-build options.
+Interactively generate a new device configuration, written as
+.I sworkflow.<device>.toml
+in the current directory. Prompts for the device name, an optional
+profile to inherit from, the defconfig and the build options. Choosing a
+profile skips the architecture and toolchain questions, because the
+profile already answers them. The generated file is checked against the
+schema before it is reported as created.
 .TP
 .BR pack ", " p " " \fIdevice\fR
 Package the compiled kernel (not yet implemented).
